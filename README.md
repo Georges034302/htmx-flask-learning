@@ -1,2 +1,2 @@
-# htmx-flask-demo
+# htmx-flask-learning
 Practice repository for learning HTMX + FLASK
