@@ -8,6 +8,14 @@ h1, h2 {
     color: #333;
 }
 
+.message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
 input {
     padding: 8px;
     margin-right: 10px;
@@ -17,6 +25,29 @@ input {
 button {
     padding: 8px 12px;
     cursor: pointer;
+}
+
+.hello-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hello-result {
+    min-width: 220px;
+    min-height: 24px;
+}
+
+.hello-result h1,
+.hello-result h2,
+.hello-result h3,
+.hello-result h4,
+.hello-result h5,
+.hello-result h6,
+.hello-result p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
 }
 
 table {
@@ -44,4 +75,87 @@ tr:nth-child(even) {
 #loading {
     color: red;
     font-weight: bold;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: min(92vw, 420px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.modal-card h3 {
+    margin-top: 0;
+}
+
+.modal-actions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Login page */
+.login-card {
+    max-width: 360px;
+    margin: 80px auto;
+    padding: 32px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.login-card h2 {
+    margin-bottom: 20px;
+}
+
+.login-card input {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Dashboard top bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.top-bar h1 {
+    margin: 0;
+}
+
+/* File upload */
+.upload-result {
+    padding: 10px 14px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.upload-result.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.upload-result.error {
+    background-color: #f8d7da;
+    color: #721c24;
 }

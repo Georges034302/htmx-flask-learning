@@ -16,16 +16,27 @@
 
 <body>
 
-	<h1>HTMX + Flask</h1>
+	<div
+		id="messages"
+		hx-get="/messages"
+		hx-trigger="load, refresh-messages from:body"
+		hx-target="this">
+	</div>
 
-	<button
-		hx-get="/hello"
-		hx-target="#result">
-		Click Me
-	</button>
+	<div class="top-bar">
+		<h1>HTMX + Flask</h1>
+		<a href="/logout"><button type="button">Logout</button></a>
+	</div>
 
-	<div id="result"></div>
-
+	<div class="hello-row">
+		<button
+			hx-get="/hello-toggle"
+			hx-target="#result">
+			Click Me
+		</button>
+		<div id="result" class="hello-result"></div>
+	</div>
+	
 	<hr>
 
 	<h2>Live Search Demo</h2>
@@ -33,18 +44,16 @@
 	<input
 		type="text"
 		name="query"
-		placeholder="Type something..."
-		hx-get="/search"
+		placeholder="Search employees..."
+		hx-get="/employees"
 		hx-trigger="keyup changed delay:500ms"
-		hx-target="#search-results"
+		hx-target="#employee-table-container"
 		hx-indicator="#loading"
 		hx-swap="innerHTML">
 
 	<p id="loading" style="display:none;">
 		Loading...
 	</p>
-
-	<div id="search-results"></div>
 
 	<hr>
 
@@ -62,8 +71,9 @@
 	<h2>Employee Table</h2>
 
 	<div
+		id="employee-table-container"
 		hx-get="/employees"
-		hx-trigger="load, employee-added from:body"
+		hx-trigger="load, every 5s, employee-added from:body"
 		hx-target="this">
 		Loading employees...
 	</div>
@@ -94,6 +104,37 @@
 	</form>
 
 	<div id="form-result"></div>
+
+	<hr>
+
+	<h2>File Upload</h2>
+
+	<form
+		hx-post="/upload-file"
+		hx-target="#upload-result"
+		hx-encoding="multipart/form-data">
+		<input type="file" name="file" accept=".png,.jpg,.jpeg,.gif,.pdf,.txt,.csv">
+		<button type="submit">Upload</button>
+	</form>
+
+	<div id="upload-result"></div>
+
+	<div id="modal"></div>
+
+	<script>
+		document.body.addEventListener("employee-added", function () {
+			document.getElementById("employee-form").reset();
+		});
+
+		document.body.addEventListener("htmx:afterSwap", function () {
+			const messages = document.querySelectorAll(".auto-dismiss");
+			messages.forEach(function (message) {
+				setTimeout(function () {
+					message.remove();
+				}, 3000);
+			});
+		});
+	</script>
 
 </body>
 </html>

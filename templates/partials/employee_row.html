@@ -4,6 +4,13 @@
 	<td>{{ employee.department }}</td>
 	<td>
 		<button
+			hx-get="/employee-details/{{ employee.id }}"
+			hx-target="#modal"
+			hx-swap="innerHTML">
+			View
+		</button>
+
+		<button
 			hx-get="/edit-employee/{{ employee.id }}"
 			hx-target="closest tr"
 			hx-swap="outerHTML">

@@ -1,0 +1,22 @@
+<div class="modal-overlay">
+	<div class="modal-card">
+		{% if employee %}
+		<h3>Employee Details</h3>
+		<p><strong>ID:</strong> {{ employee.id }}</p>
+		<p><strong>Name:</strong> {{ employee.name }}</p>
+		<p><strong>Department:</strong> {{ employee.department }}</p>
+		{% else %}
+		<h3>Employee Not Found</h3>
+		<p>The requested employee record does not exist.</p>
+		{% endif %}
+
+		<div class="modal-actions">
+			<button
+				hx-get="/close-modal"
+				hx-target="#modal"
+				hx-swap="innerHTML">
+				Close
+			</button>
+		</div>
+	</div>
+</div>

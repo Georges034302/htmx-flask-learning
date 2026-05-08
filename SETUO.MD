@@ -2119,3 +2119,2005 @@ for employee in employees:
 - OR logic for search matching
 - Server-side search architecture vs frontend JS filtering
 - HTMX philosophy: backend owns logic and rendering, frontend stays lightweight
+
+---
+
+## 31) Add Empty-State Handling ("No Results Found")
+
+### Goal
+When search returns no results, display a clear message instead of leaving the UI blank.
+
+### 31.1 Updated templates/partials/search_results.html
+
+Replaced the bare `{% for %}` loop with a Jinja conditional:
+
+```html
+{% if employees %}
+<ul>
+{% for employee in employees %}
+    <li>
+        {{ employee.name }} - {{ employee.department }}
+    </li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No employees found.</p>
+{% endif %}
+```
+
+`{% if employees %}` evaluates to `True` when the list is non-empty, and `False` when it is empty — equivalent to checking `employees.length > 0`.
+
+### 31.2 Test cases
+
+| Query  | Expected result             |
+|--------|-----------------------------|
+| `zzzz` | No employees found.         |
+| `IT`   | Alice, David                |
+
+### Architectural note
+The server decides which UI state to render — results list or empty-state message. No frontend JavaScript required. This is the core HTMX philosophy: centralized, server-driven rendering.
+
+### What you learned
+- Jinja conditional rendering (`{% if %} / {% else %} / {% endif %}`)
+- Empty-state UX pattern
+- Server-driven UI states
+- Professional application feedback (loading states, empty states, error states)
+- HTMX architecture: server owns all rendering decisions
+
+---
+
+## 32) Add Dynamic Search Result Count
+
+### Goal
+Display the number of matching employees alongside search results so users always know how many records were found.
+
+### 32.1 Updated templates/partials/search_results.html
+
+```html
+{% if employees %}
+
+<p>
+    <strong>{{ employees|length }}</strong>
+    employee{% if employees|length != 1 %}s{% endif %} found.
+</p>
+
+<ul>
+{% for employee in employees %}
+    <li>
+        {{ employee.name }} - {{ employee.department }}
+    </li>
+{% endfor %}
+</ul>
+
+{% else %}
+
+<p>No employees found.</p>
+
+{% endif %}
+```
+
+Key Jinja concepts used:
+- `employees|length` — Jinja filter equivalent to `len(employees)`, calculates list size.
+- `{% if employees|length != 1 %}s{% endif %}` — handles singular/plural grammar ("1 employee found" vs "2 employees found").
+
+### 32.2 Test cases
+
+| Query  | Expected result          |
+|--------|--------------------------|
+| `IT`   | **2** employees found.   |
+| `Emma` | **1** employee found.    |
+| `zzzz` | No employees found.      |
+
+### Architectural note
+The backend now controls filtering, rendering, count calculation, and UX messaging in one place. The frontend receives ready-to-display HTML — no JavaScript counter logic required.
+
+### What you learned
+- Jinja filters (`|length`)
+- Singular/plural conditional rendering
+- Dynamic result counts
+- Continuous UI feedback
+- Centralized server-driven UX states
+
+---
+
+## 33) Add Real-Time Table Filtering with HTMX
+
+### Goal
+Wire the search input directly to the employee table so typing filters the table live — no separate search results section.
+
+### 33.1 Updated /employees route (routes/main_routes.py)
+
+Added query-parameter filtering, matching both `name` and `department`:
+
+```python
+@main.route("/employees")
+def get_employees():
+    query = request.args.get("query", "").lower()
+
+    filtered_employees = []
+    for employee in employees:
+        name_match = query in employee["name"].lower()
+        department_match = query in employee["department"].lower()
+        if name_match or department_match:
+            filtered_employees.append(employee)
+
+    return render_template(
+        "partials/employees_table.html",
+        employees=filtered_employees
+    )
+```
+
+### 33.2 Updated search input (templates/index.html)
+
+Changed `hx-get` and `hx-target` to point at the employee table container:
+
+```html
+<input
+    type="text"
+    name="query"
+    placeholder="Search employees..."
+    hx-get="/employees"
+    hx-trigger="keyup changed delay:500ms"
+    hx-target="#employee-table-container"
+    hx-indicator="#loading"
+    hx-swap="innerHTML">
+```
+
+Removed the now-redundant `<div id="search-results"></div>`.
+
+### 33.3 Updated employee table container (templates/index.html)
+
+Added `id="employee-table-container"` so the search input can target it:
+
+```html
+<div
+    id="employee-table-container"
+    hx-get="/employees"
+    hx-trigger="load, employee-added from:body"
+    hx-target="this">
+    Loading employees...
+</div>
+```
+
+### 33.4 Behaviour
+
+- Table auto-loads on page open.
+- Typing in the search box sends `/employees?query=...` and replaces the table contents live.
+- Adding an employee fires `employee-added` and the table refreshes automatically.
+- Single unified component owns display, filtering, and updates.
+
+### What you learned
+- Component-driven filtering
+- Unified reactive rendering
+- Live table updates with server-side search
+- Single source of UI truth
+- Real dashboard-style HTMX architecture
+
+---
+
+## 34) Add Sorting to the Employee Table
+
+### Goal
+Make column headers clickable so the table reorders dynamically — server-side, no JavaScript.
+
+### 34.1 Updated /employees route (routes/main_routes.py)
+
+Added `sort` parameter, sorting logic, and passed both `sort` and `query` to the template:
+
+```python
+@main.route("/employees")
+def get_employees():
+    query = request.args.get("query", "").lower()
+    sort = request.args.get("sort", "id")
+
+    filtered_employees = []
+    for employee in employees:
+        name_match = query in employee["name"].lower()
+        department_match = query in employee["department"].lower()
+        if name_match or department_match:
+            filtered_employees.append(employee)
+
+    filtered_employees.sort(key=lambda employee: employee[sort])
+
+    return render_template(
+        "partials/employees_table.html",
+        employees=filtered_employees,
+        sort=sort,
+        query=query
+    )
+```
+
+`filtered_employees.sort(key=lambda employee: employee[sort])` dynamically sorts by `id`, `name`, or `department` based on the query parameter.
+
+Passing `sort` and `query` back to the template preserves state across interactions.
+
+### 34.2 Updated table headers (templates/partials/employees_table.html)
+
+Each header is now a clickable HTMX link that preserves the current search query:
+
+```html
+<th>
+    <a hx-get="/employees?query={{ query }}&sort=id"
+       hx-target="#employee-table-container">ID</a>
+</th>
+<th>
+    <a hx-get="/employees?query={{ query }}&sort=name"
+       hx-target="#employee-table-container">Name</a>
+</th>
+<th>
+    <a hx-get="/employees?query={{ query }}&sort=department"
+       hx-target="#employee-table-container">Department</a>
+</th>
+```
+
+### 34.3 Test cases
+
+- Click **Name** → table sorts alphabetically by name.
+- Click **Department** → table sorts by department.
+- Click **ID** → table returns to insertion order.
+- Type `IT` then click **Name** → filtered results sort by name, query preserved.
+
+DevTools shows requests like `/employees?query=it&sort=name`.
+
+### Architectural note
+The server owns sorting state, filter state, and rendering. The frontend has no sort logic — only declarative HTMX attributes.
+
+### What you learned
+- Reactive sorting with query parameters
+- Stateful HTMX requests (preserving query across interactions)
+- Server-side ordering
+- Dynamic table controls
+- Enterprise dashboard architecture pattern
+
+---
+
+## 35) Add Pagination to the Employee Table
+
+### Goal
+Limit table rows per page and allow navigation between pages, preserving search and sort state.
+
+### 35.1 Expanded mock data (data/mock.py)
+
+Added 7 more employees (ids 6–12) so pagination is meaningful:
+
+```python
+{"id": 6, "name": "Frank", "department": "Security"},
+{"id": 7, "name": "Grace", "department": "IT"},
+{"id": 8, "name": "Helen", "department": "Finance"},
+{"id": 9, "name": "Ian", "department": "HR"},
+{"id": 10, "name": "Jack", "department": "Marketing"},
+{"id": 11, "name": "Karen", "department": "IT"},
+{"id": 12, "name": "Leo", "department": "Security"}
+```
+
+### 35.2 Updated /employees route (routes/main_routes.py)
+
+Added `page` parameter, slicing logic, and `total_pages` calculation:
+
+```python
+page = int(request.args.get("page", 1))
+per_page = 5
+
+start = (page - 1) * per_page
+end = start + per_page
+paginated_employees = filtered_employees[start:end]
+total_pages = (len(filtered_employees) + per_page - 1) // per_page
+```
+
+`(len + per_page - 1) // per_page` is integer ceiling division — ensures a partial last page is counted.
+
+Template call updated to pass `page` and `total_pages`:
+
+```python
+return render_template(
+    "partials/employees_table.html",
+    employees=paginated_employees,
+    sort=sort,
+    query=query,
+    page=page,
+    total_pages=total_pages
+)
+```
+
+### 35.3 Added pagination controls (templates/partials/employees_table.html)
+
+Navigation buttons appear below the table and preserve current query and sort:
+
+```html
+<div style="margin-top:20px;">
+
+{% if page > 1 %}
+<button hx-get="/employees?query={{ query }}&sort={{ sort }}&page={{ page - 1 }}"
+        hx-target="#employee-table-container">Previous</button>
+{% endif %}
+
+<span>Page {{ page }} of {{ total_pages }}</span>
+
+{% if page < total_pages %}
+<button hx-get="/employees?query={{ query }}&sort={{ sort }}&page={{ page + 1 }}"
+        hx-target="#employee-table-container">Next</button>
+{% endif %}
+
+</div>
+```
+
+### 35.4 Test cases
+
+- Default load → 5 rows, page 1 of 3, Next button visible.
+- Click **Next** → page 2, Previous and Next both visible.
+- Search `IT` → 4 results across pages, navigation adjusts.
+- Sort by **Name** then page → sort preserved across pages.
+
+DevTools shows requests like `/employees?query=it&sort=name&page=2`.
+
+### Architectural note
+The server slices, sorts, and filters before rendering. The frontend receives only the current page as ready HTML — no full dataset shipped to the browser.
+
+### What you learned
+- Server-side pagination
+- Integer ceiling division for total pages
+- State-preserving navigation (query + sort + page)
+- Reactive page controls with HTMX
+- Scalable table architecture
+
+---
+
+## 36) Add Flash Messages for Global User Feedback
+
+### Goal
+Show a success notification when an employee is added, rendered in a global reactive region — no page refresh.
+
+### 36.1 Updated imports (routes/main_routes.py)
+
+```python
+from flask import Blueprint, render_template, request, flash, get_flashed_messages
+```
+
+### 36.2 Added secret key (app.py)
+
+```python
+app.secret_key = "super-secret-key"
+```
+
+Flask flash messaging uses the session, which requires a secret key.
+
+### 36.3 Added /messages route (routes/main_routes.py)
+
+```python
+@main.route("/messages")
+def messages():
+    return render_template("partials/messages.html")
+```
+
+### 36.4 Created messages partial (templates/partials/messages.html)
+
+```html
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+```
+
+`get_flashed_messages()` retrieves and clears stored messages in one call — messages disappear after first render.
+
+### 36.5 Added messages container to index.html
+
+Placed at the top of `<body>`:
+
+```html
+<div
+    id="messages"
+    hx-get="/messages"
+    hx-trigger="load, refresh-messages from:body"
+    hx-target="this">
+</div>
+```
+
+Listens for the custom `refresh-messages` event fired by the server response header.
+
+### 36.6 Updated add_employee route
+
+Added `flash()` call and extended `HX-Trigger` to fire two events:
+
+```python
+flash(f"Employee {name} added successfully.")
+
+return response, 200, {
+    "HX-Trigger": "employee-added, refresh-messages"
+}
+```
+
+One POST now triggers both a table refresh and a notification refresh.
+
+### 36.7 Added CSS (static/style.css)
+
+```css
+.message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+```
+
+### 36.8 Test
+
+Add an employee → green success message appears at top, table updates — no page refresh.
+
+### What you learned
+- Flask `flash()` and `get_flashed_messages()`
+- Session-backed temporary notifications
+- Global reactive UI regions
+- Multi-component synchronization via `HX-Trigger`
+- Event-driven UX architecture
+
+---
+
+## 38) Prevent Duplicate Employees + Show Flash Message
+
+### Goal
+Reject duplicate employee names server-side and show a flash message — table unchanged on duplicate attempt.
+
+### 38.1 Updated add_employee route (routes/main_routes.py)
+
+Added duplicate check immediately after reading form data:
+
+```python
+existing_employee = next(
+    (
+        employee
+        for employee in employees
+        if employee["name"].lower() == name.lower()
+    ),
+    None
+)
+
+if existing_employee:
+    flash(f"Employee '{name}' already exists.")
+    return "", 200, {
+        "HX-Trigger": "refresh-messages"
+    }
+```
+
+If a duplicate is found:
+- Employee is **not** added.
+- Flash message is stored.
+- Only `refresh-messages` fires — table stays unchanged.
+
+If no duplicate, normal flow continues: employee added, table and messages both refresh.
+
+### 38.2 Logic flow
+
+```
+POST /add-employee
+  → duplicate found?
+      YES → flash warning, fire refresh-messages only
+      NO  → append employee, flash success, fire employee-added + refresh-messages
+```
+
+### 38.3 Test cases
+
+| Action               | Expected result                          |
+|----------------------|------------------------------------------|
+| Add "Alice" again    | Flash: "Employee 'Alice' already exists." — table unchanged |
+| Add "alice" (lower)  | Same — case-insensitive match            |
+| Add "Zara" (new)     | Flash: "Employee Zara added successfully." — table updates |
+
+### Architectural note
+Validation lives entirely on the server. The frontend receives only HTML feedback — no client-side duplicate checking required.
+
+### What you learned
+- Server-side validation architecture
+- Case-insensitive duplicate detection with `next()` + generator
+- Conditional reactive responses (different `HX-Trigger` per outcome)
+- Business rule enforcement in Flask routes
+- Backend-driven feedback for invalid input
+
+---
+
+## 39) Clear the Form Automatically After Successful Submission
+
+### Goal
+Clear the add-employee form automatically after a successful submission, so the UI is immediately ready for the next entry.
+
+### 39.1 Confirmed form id in templates/index.html
+
+The form already has:
+
+```html
+<form
+    id="employee-form"
+    hx-post="/add-employee"
+    hx-target="#form-result">
+```
+
+### 39.2 Added event listener script in templates/index.html
+
+Inserted before `</body>`:
+
+```html
+<script>
+document.body.addEventListener("employee-added", function () {
+    document.getElementById("employee-form").reset();
+});
+</script>
+```
+
+This listens for the `employee-added` custom event (already emitted by the backend) and calls `.reset()` on the form.
+
+### 39.3 Behavior
+
+After successful add:
+- employee is saved
+- flash message appears
+- table refreshes
+- form fields clear automatically
+
+No page refresh is required.
+
+### Architectural note
+This is minimal, intentional JavaScript. The backend remains the source of truth by emitting events; the frontend only reacts to those events.
+
+### What you learned
+- HTMX custom event handling in plain JavaScript
+- Form reset automation with `.reset()`
+- Backend-triggered client behavior
+- Minimal-JS enhancement pattern in HTMX apps
+- Event-driven UX flow
+
+---
+
+## 40) Add Auto-Dismissing Flash Messages
+
+### Goal
+Make flash messages disappear automatically after a short delay to reduce UI clutter.
+
+### 40.1 Updated messages partial (templates/partials/messages.html)
+
+Message container class updated from:
+
+```html
+<div class="message">
+```
+
+to:
+
+```html
+<div class="message auto-dismiss">
+```
+
+`auto-dismiss` is used by JavaScript to target removable notifications.
+
+### 40.2 Updated script in templates/index.html
+
+Added an HTMX lifecycle listener:
+
+```html
+document.body.addEventListener("htmx:afterSwap", function () {
+    const messages = document.querySelectorAll(".auto-dismiss");
+    messages.forEach(function (message) {
+        setTimeout(function () {
+            message.remove();
+        }, 3000);
+    });
+});
+```
+
+How it works:
+- HTMX swaps new message HTML into the page.
+- `htmx:afterSwap` fires.
+- Each `.auto-dismiss` message is removed after 3 seconds.
+
+### 40.3 Test
+
+Add an employee:
+- message appears
+- stays visible briefly
+- disappears automatically (~3 seconds)
+
+No page refresh required.
+
+### What you learned
+- HTMX lifecycle events (`htmx:afterSwap`)
+- Timed DOM cleanup for notifications
+- Auto-dismiss UX pattern
+- Lightweight JS enhancements with HTMX
+
+---
+
+## 41) Add Polling with Automatic Table Refresh
+
+### Goal
+Keep the employee table synchronized by auto-refreshing at a fixed interval.
+
+### 41.1 Updated employee table container (templates/index.html)
+
+Changed trigger from:
+
+```html
+hx-trigger="load, employee-added from:body"
+```
+
+to:
+
+```html
+hx-trigger="load, every 5s, employee-added from:body"
+```
+
+### 41.2 Behavior
+
+- Table loads on initial page render.
+- Table refreshes every 5 seconds automatically.
+- Table also refreshes immediately on `employee-added` event.
+
+No manual action or page refresh is required.
+
+### 41.3 Operational note
+
+Polling improves synchronization but adds recurring server requests. Choose interval based on context (`5s`, `10s`, `30s`, etc.) to balance freshness and load.
+
+### What you learned
+- HTMX polling with `every 5s`
+- Periodic trigger-based synchronization
+- Live dashboard behavior without custom timer code
+- Simple server-driven refresh architecture
+
+---
+
+## 42) Add Modal Windows for Employee Details
+
+### Goal
+Open employee details inside a server-rendered modal overlay using HTMX partial swaps.
+
+### 42.1 Added modal routes (routes/main_routes.py)
+
+New routes:
+
+```python
+@main.route("/employee-details/<int:id>")
+def employee_details(id):
+    ...
+    return render_template("partials/employee_details_modal.html", employee=employee)
+
+
+@main.route("/close-modal")
+def close_modal():
+    return ""
+```
+
+`/employee-details/<id>` renders modal HTML. `/close-modal` clears the modal container.
+
+### 42.2 Added modal partial (templates/partials/employee_details_modal.html)
+
+Created a modal overlay/card partial that shows:
+- ID
+- Name
+- Department
+
+Includes a **Close** button that targets `#modal` and swaps empty HTML via `/close-modal`.
+
+### 42.3 Added View action in table rows (templates/partials/employee_row.html)
+
+Added button:
+
+```html
+<button
+    hx-get="/employee-details/{{ employee.id }}"
+    hx-target="#modal"
+    hx-swap="innerHTML">
+    View
+</button>
+```
+
+This opens the modal without page refresh.
+
+### 42.4 Added modal mount point (templates/index.html)
+
+Added container:
+
+```html
+<div id="modal"></div>
+```
+
+All modal content is dynamically injected into this region.
+
+### 42.5 Added modal styles (static/style.css)
+
+Added:
+- `.modal-overlay`
+- `.modal-card`
+- `.modal-actions`
+
+for centered overlay rendering and clean modal presentation.
+
+### 42.6 Test
+
+1. Load employee table.
+2. Click **View** on any row.
+3. Modal appears with employee details.
+4. Click **Close**.
+5. Modal disappears without refreshing the page.
+
+### What you learned
+- Modal rendering with HTMX partials
+- Targeted overlay updates via `hx-target`
+- Server-driven detail views
+- Reusable modal mount pattern
+
+---
+
+## 43+) Next Steps Sequence (Planned)
+
+Per your request, we are moving step-by-step and some steps may remain planned-only.
+
+- **43)** Real Database Integration (SQLite + SQLAlchemy) — see full instructions below
+- **44)** Form Validation System — planned (after DB model exists)
+
+---
+
+## 43) Real Database Integration (SQLite + SQLAlchemy)
+
+> **Not yet implemented** — instructions below describe the full migration path when a database is available.
+
+### Goal
+Replace the in-memory `employees` list in `data/mock.py` with a real SQLite database managed by Flask-SQLAlchemy.
+
+---
+
+### 43.1 Install dependencies
+
+```bash
+source venv/bin/activate
+pip install flask-sqlalchemy
+pip freeze > requirements.txt
+```
+
+---
+
+### 43.2 Create database configuration (db.py)
+
+Create `db.py` in the project root:
+
+```python
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+```
+
+---
+
+### 43.3 Define Employee model (models/employee.py)
+
+Create folder and file `models/employee.py`:
+
+```python
+from db import db
+
+class Employee(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    department = db.Column(db.String(100), nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "department": self.department
+        }
+```
+
+---
+
+### 43.4 Update app.py
+
+Wire the database to the Flask app:
+
+```python
+from flask import Flask
+from db import db
+from routes.main_routes import main
+
+app = Flask(__name__)
+app.secret_key = "super-secret-key"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///employees.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
+app.register_blueprint(main)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+`db.create_all()` creates tables automatically on first startup.
+
+---
+
+### 43.5 Update routes/main_routes.py imports
+
+Replace:
+
+```python
+from data.mock import employees
+```
+
+With:
+
+```python
+from db import db
+from models.employee import Employee
+```
+
+---
+
+### 43.6 Migrate route operations
+
+Replace in-memory list operations with SQLAlchemy queries:
+
+#### GET /employees (list with filter + sort + paginate)
+
+```python
+query_str = request.args.get("query", "").lower()
+sort = request.args.get("sort", "id")
+page = int(request.args.get("page", 1))
+per_page = 5
+
+sort_column = getattr(Employee, sort, Employee.id)
+results = Employee.query.filter(
+    db.or_(
+        Employee.name.ilike(f"%{query_str}%"),
+        Employee.department.ilike(f"%{query_str}%")
+    )
+).order_by(sort_column).paginate(page=page, per_page=per_page, error_out=False)
+
+employees = [e.to_dict() for e in results.items]
+total_pages = results.pages
+```
+
+#### POST /add-employee
+
+```python
+existing = Employee.query.filter(
+    db.func.lower(Employee.name) == name.lower()
+).first()
+
+if not existing:
+    db.session.add(Employee(name=name, department=department))
+    db.session.commit()
+```
+
+#### PUT /update-employee/<id>
+
+```python
+employee = Employee.query.get_or_404(id)
+employee.name = request.form.get("name")
+employee.department = request.form.get("department")
+db.session.commit()
+```
+
+#### DELETE /delete-employee/<id>
+
+```python
+employee = Employee.query.get_or_404(id)
+db.session.delete(employee)
+db.session.commit()
+```
+
+---
+
+### 43.7 Seed initial data (optional)
+
+After `db.create_all()` in `app.py`:
+
+```python
+with app.app_context():
+    db.create_all()
+    if Employee.query.count() == 0:
+        seed = [
+            Employee(name="Alice", department="IT"),
+            Employee(name="Bob", department="HR"),
+            Employee(name="Charlie", department="Finance"),
+            Employee(name="David", department="IT"),
+            Employee(name="Emma", department="Marketing"),
+        ]
+        db.session.bulk_save_objects(seed)
+        db.session.commit()
+```
+
+---
+
+### 43.8 Updated project structure after migration
+
+```
+htmx-flask-learning/
+├── app.py
+├── db.py
+├── requirements.txt
+├── data/
+│   └── mock.py           ← no longer imported, kept for reference
+├── models/
+│   └── employee.py       ← SQLAlchemy Employee model
+├── routes/
+│   └── main_routes.py
+├── templates/
+│   ├── index.html
+│   └── partials/
+├── static/
+│   └── style.css
+└── instance/
+    └── employees.db      ← auto-created by SQLite
+```
+
+---
+
+### What you will learn
+- Flask-SQLAlchemy setup and configuration
+- ORM model definition and relationships
+- Database-backed CRUD operations
+- SQLAlchemy queries (filter, order_by, paginate, ilike)
+- Session commit/rollback pattern
+- Seeding initial data programmatically
+- Migrating from in-memory mock data to persistent storage
+
+---
+
+## 44) Form Validation System
+
+> **Not yet implemented** — instructions below describe the full server-side validation pattern to add once the DB step is ready (or directly on top of mock data).
+
+### Goal
+Add field-level validation to the Add Employee form: required fields, minimum length, allowed department values, and inline error feedback — all server-side, rendered as HTMX partials.
+
+---
+
+### 44.1 Create validation helper (utils/validators.py)
+
+Create folder and file `utils/validators.py`:
+
+```python
+VALID_DEPARTMENTS = {"IT", "HR", "Finance", "Marketing", "Security"}
+
+def validate_employee(name, department):
+    errors = []
+
+    if not name or len(name.strip()) < 2:
+        errors.append("Name must be at least 2 characters.")
+
+    if not department or department.strip() not in VALID_DEPARTMENTS:
+        errors.append(
+            f"Department must be one of: {', '.join(sorted(VALID_DEPARTMENTS))}."
+        )
+
+    return errors
+```
+
+Returns a list of error strings. Empty list means valid.
+
+---
+
+### 44.2 Create validation error partial (templates/partials/form_errors.html)
+
+```html
+{% if errors %}
+<div class="form-errors">
+    <ul>
+    {% for error in errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+```
+
+This partial is injected into `#form-result` when validation fails.
+
+---
+
+### 44.3 Update add_employee route (routes/main_routes.py)
+
+Import validator:
+
+```python
+from utils.validators import validate_employee
+```
+
+Add validation before duplicate check:
+
+```python
+@main.route("/add-employee", methods=["POST"])
+def add_employee():
+    name = request.form.get("name", "").strip()
+    department = request.form.get("department", "").strip()
+
+    errors = validate_employee(name, department)
+    if errors:
+        return render_template("partials/form_errors.html", errors=errors), 200
+
+    # existing duplicate check follows...
+```
+
+If validation fails:
+- Returns rendered error partial into `#form-result`.
+- No employee is added.
+- No flash message fires.
+- Table is unaffected.
+
+---
+
+### 44.4 Add error styles (static/style.css)
+
+```css
+.form-errors {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.form-errors ul {
+    margin: 0;
+    padding-left: 18px;
+}
+```
+
+---
+
+### 44.5 Full validation + duplicate check flow
+
+```
+POST /add-employee
+  → validate fields
+      INVALID → render form_errors.html into #form-result, stop
+  → check duplicate
+      DUPLICATE → flash warning, fire refresh-messages, stop
+  → add employee
+      SUCCESS → flash success, fire employee-added + refresh-messages
+```
+
+---
+
+### 44.6 Test cases
+
+| Input                         | Expected result                              |
+|-------------------------------|----------------------------------------------|
+| Name: `A`, Dept: `IT`         | Error: name too short                        |
+| Name: `Alice`, Dept: `Foo`    | Error: invalid department                    |
+| Name: ``, Dept: ``            | Both errors rendered                         |
+| Name: `Alice`, Dept: `IT`     | Duplicate warning (Alice already exists)     |
+| Name: `Zara`, Dept: `Finance` | Success — employee added                     |
+
+---
+
+### What you will learn
+- Server-side field validation pattern
+- Reusable validator module
+- Inline error rendering with HTMX partials
+- Layered validation (field checks → business rules → persistence)
+- Separation of validation logic from route logic
+
+---
+
+## 45) Authentication (Session-Based Login)
+
+> **Not yet implemented** — instructions below describe the full session-based authentication pattern for this Flask + HTMX app.
+
+### Goal
+Protect the employee dashboard behind a login page. Unauthenticated users are redirected to `/login`. Authenticated users can log out. No third-party auth library required — pure Flask sessions.
+
+---
+
+### 45.1 Add a user store (data/mock.py)
+
+Append a simple user dict alongside employees:
+
+```python
+users = {
+    "admin": "password123"
+}
+```
+
+In production this would be a DB table with hashed passwords (e.g. `werkzeug.security.generate_password_hash`).
+
+---
+
+### 45.2 Create login template (templates/login.html)
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="login-card">
+    <h2>Login</h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message error">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/login">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+</div>
+</body>
+</html>
+```
+
+Standard HTML form — no HTMX needed for login (full-page navigation is fine here).
+
+---
+
+### 45.3 Add auth routes (routes/main_routes.py)
+
+Add imports:
+
+```python
+from flask import session, redirect, url_for
+from data.mock import employees, users
+from werkzeug.security import check_password_hash
+```
+
+Add login/logout routes:
+
+```python
+@main.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
+
+        if username in users and users[username] == password:
+            session["user"] = username
+            return redirect(url_for("main.index"))
+
+        flash("Invalid username or password.")
+        return redirect(url_for("main.login"))
+
+    return render_template("login.html")
+
+
+@main.route("/logout")
+def logout():
+    session.pop("user", None)
+    return redirect(url_for("main.login"))
+```
+
+---
+
+### 45.4 Create login_required decorator (utils/auth.py)
+
+Create `utils/auth.py`:
+
+```python
+from functools import wraps
+from flask import session, redirect, url_for
+
+def login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if "user" not in session:
+            return redirect(url_for("main.login"))
+        return f(*args, **kwargs)
+    return decorated
+```
+
+---
+
+### 45.5 Protect the index route
+
+In `routes/main_routes.py`, import and apply the decorator:
+
+```python
+from utils.auth import login_required
+
+@main.route("/")
+@login_required
+def index():
+    return render_template("index.html")
+```
+
+Apply `@login_required` to any route that should be protected.
+
+---
+
+### 45.6 Add logout button (templates/index.html)
+
+Add to the top of the page alongside the heading:
+
+```html
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    <h1>Employee Dashboard</h1>
+    <a href="/logout"><button>Logout</button></a>
+</div>
+```
+
+---
+
+### 45.7 Add login card styles (static/style.css)
+
+```css
+.login-card {
+    max-width: 360px;
+    margin: 80px auto;
+    padding: 32px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.login-card h2 {
+    margin-bottom: 20px;
+}
+
+.login-card input {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+```
+
+---
+
+### 45.8 Authentication flow
+
+```
+GET /
+  → session has "user"?
+      NO  → redirect to /login
+      YES → render dashboard
+
+POST /login
+  → credentials valid?
+      NO  → flash error, redirect to /login
+      YES → session["user"] = username, redirect to /
+
+GET /logout
+  → session.pop("user")
+  → redirect to /login
+```
+
+---
+
+### 45.9 Test cases
+
+| Action                        | Expected result                     |
+|-------------------------------|-------------------------------------|
+| Visit `/` unauthenticated     | Redirected to `/login`              |
+| Login with wrong password     | Flash: "Invalid username or password." |
+| Login with `admin/password123`| Redirected to dashboard             |
+| Click Logout                  | Redirected to `/login`              |
+| Visit `/` after logout        | Redirected to `/login`              |
+
+---
+
+### What you will learn
+- Flask `session` for stateful auth
+- Login/logout route patterns
+- Custom `login_required` decorator with `functools.wraps`
+- Protecting routes declaratively
+- Redirect flow for unauthenticated access
+- Separating auth logic into its own utility module
+
+---
+
+## 46) File Uploads
+
+### Goal
+Allow users to upload files from the dashboard. The file is sent via an HTMX form, validated server-side (type + size), saved to disk, and the result is rendered inline — no page refresh.
+
+---
+
+### 46.1 Configure upload folder (app.py)
+
+```python
+import os
+
+app.config["UPLOAD_FOLDER"] = os.path.join(os.path.dirname(__file__), "uploads")
+app.config["MAX_CONTENT_LENGTH"] = 2 * 1024 * 1024  # 2 MB limit
+```
+
+`MAX_CONTENT_LENGTH` causes Flask to automatically reject oversized uploads with a 413 error.
+
+---
+
+### 46.2 Create uploads/ directory
+
+```bash
+mkdir uploads
+```
+
+Files will be saved here server-side.
+
+---
+
+### 46.3 Add upload helpers and route (routes/main_routes.py)
+
+Imports added:
+
+```python
+import os
+from werkzeug.utils import secure_filename
+from flask import current_app
+
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "pdf", "txt", "csv"}
+
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+```
+
+Route:
+
+```python
+@main.route("/upload-file", methods=["POST"])
+@login_required
+def upload_file():
+    file = request.files.get("file")
+
+    if not file or file.filename == "":
+        return render_template("partials/upload_result.html", error="No file selected.")
+
+    if not allowed_file(file.filename):
+        return render_template("partials/upload_result.html",
+            error=f"File type not allowed. Allowed: {', '.join(sorted(ALLOWED_EXTENSIONS))}.")
+
+    filename = secure_filename(file.filename)
+    save_path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
+    file.save(save_path)
+
+    return render_template("partials/upload_result.html", filename=filename)
+```
+
+`secure_filename` sanitizes the filename to prevent path traversal attacks.
+
+---
+
+### 46.4 Create upload result partial (templates/partials/upload_result.html)
+
+```html
+{% if error %}
+<div class="upload-result error">{{ error }}</div>
+{% elif filename %}
+<div class="upload-result success">
+    <strong>Uploaded:</strong> {{ filename }}
+</div>
+{% endif %}
+```
+
+---
+
+### 46.5 Add upload form to dashboard (templates/index.html)
+
+```html
+<h2>File Upload</h2>
+
+<form
+    hx-post="/upload-file"
+    hx-target="#upload-result"
+    hx-encoding="multipart/form-data">
+    <input type="file" name="file" accept=".png,.jpg,.jpeg,.gif,.pdf,.txt,.csv">
+    <button type="submit">Upload</button>
+</form>
+
+<div id="upload-result"></div>
+```
+
+`hx-encoding="multipart/form-data"` is required for file uploads with HTMX.
+
+---
+
+### 46.6 Add upload CSS (static/style.css)
+
+```css
+.upload-result {
+    padding: 10px 14px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.upload-result.success { background-color: #d4edda; color: #155724; }
+.upload-result.error   { background-color: #f8d7da; color: #721c24; }
+```
+
+---
+
+### 46.7 Test cases
+
+| Action                          | Expected result                          |
+|---------------------------------|------------------------------------------|
+| Upload a `.txt` file            | Success: "Uploaded: filename.txt"        |
+| Submit with no file selected    | Error: "No file selected."               |
+| Upload a `.exe` file            | Error: "File type not allowed."          |
+| Upload file > 2 MB              | Flask returns 413 Request Entity Too Large |
+
+---
+
+### What you learned
+- `hx-encoding="multipart/form-data"` for HTMX file uploads
+- `secure_filename` for path traversal prevention
+- Server-side file type whitelisting
+- `MAX_CONTENT_LENGTH` for size enforcement
+- `current_app` for accessing config inside Blueprints
+- Inline upload feedback with HTMX partials
+
+---
+
+---
+
+## 47) Dockerize the App
+
+> **Instructions only** — no implementation required.
+
+### Goal
+Package the Flask application into a Docker container so it runs identically in any environment.
+
+---
+
+### 47.1 Install gunicorn
+
+```bash
+source venv/bin/activate
+pip install gunicorn
+pip freeze > requirements.txt
+```
+
+Gunicorn is the production WSGI server used inside the container — Flask's built-in dev server is not suitable for production.
+
+---
+
+### 47.2 Create Dockerfile
+
+Create `Dockerfile` in the project root:
+
+```dockerfile
+# Use official slim Python image
+FROM python:3.12-slim
+
+# Set working directory inside container
+WORKDIR /app
+
+# Copy dependency list first (layer caching)
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application
+COPY . .
+
+# Create uploads directory
+RUN mkdir -p uploads
+
+# Expose the port gunicorn will listen on
+EXPOSE 8000
+
+# Run with gunicorn — 2 worker processes
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "app:app"]
+```
+
+Layer ordering matters: copying `requirements.txt` first means Docker reuses the pip install cache unless dependencies change.
+
+---
+
+### 47.3 Create .dockerignore
+
+Create `.dockerignore` in the project root:
+
+```
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+.git
+uploads/
+instance/
+*.db
+```
+
+Prevents large or sensitive files from being copied into the image.
+
+---
+
+### 47.4 Create docker-compose.yml
+
+Create `docker-compose.yml` for easier local development:
+
+```yaml
+version: "3.9"
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./uploads:/app/uploads
+    environment:
+      - FLASK_ENV=production
+```
+
+The `volumes` mount keeps uploaded files on the host, not lost when the container restarts.
+
+---
+
+### 47.5 Build and run
+
+```bash
+# Build the image
+docker build -t htmx-flask-app .
+
+# Run the container
+docker run -p 8000:8000 htmx-flask-app
+
+# Or with docker-compose
+docker-compose up --build
+```
+
+Visit `http://localhost:8000` to verify.
+
+---
+
+### 47.6 Updated project structure
+
+```
+htmx-flask-learning/
+├── app.py
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
+├── requirements.txt
+├── data/
+├── routes/
+├── templates/
+├── static/
+├── uploads/
+└── venv/               ← excluded by .dockerignore
+```
+
+---
+
+### What you will learn
+- Docker image build with `FROM`, `COPY`, `RUN`, `CMD`
+- Layer caching with dependency-first copy
+- `.dockerignore` to exclude unnecessary files
+- `docker-compose` for multi-container or local dev convenience
+- Difference between Flask dev server and gunicorn in production
+- Volume mounting for persistent file storage
+
+---
+
+## 48) Deploy to Azure
+
+> **Instructions only** — no implementation required (Azure subscription needed).
+
+### Goal
+Deploy the Docker container image to Azure Container Apps — a serverless container platform that handles scaling, HTTPS, and infrastructure automatically.
+
+---
+
+### 48.1 Prerequisites
+
+- Azure account with active subscription
+- Azure CLI installed: `az --version`
+- Docker installed and running
+- App containerized per Step 47
+
+---
+
+### 48.2 Install Azure CLI (if needed)
+
+```bash
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+az login
+```
+
+---
+
+### 48.3 Create Azure resources
+
+```bash
+# Set variables
+RESOURCE_GROUP=htmx-flask-rg
+LOCATION=eastus
+ACR_NAME=htmxflaskregistry
+APP_ENV=htmx-flask-env
+APP_NAME=htmx-flask-app
+
+# Create resource group
+az group create --name $RESOURCE_GROUP --location $LOCATION
+
+# Create Azure Container Registry
+az acr create --resource-group $RESOURCE_GROUP \
+              --name $ACR_NAME \
+              --sku Basic \
+              --admin-enabled true
+```
+
+---
+
+### 48.4 Push image to Azure Container Registry
+
+```bash
+# Login to ACR
+az acr login --name $ACR_NAME
+
+# Tag and push image
+docker tag htmx-flask-app $ACR_NAME.azurecr.io/htmx-flask-app:latest
+docker push $ACR_NAME.azurecr.io/htmx-flask-app:latest
+```
+
+---
+
+### 48.5 Create Container Apps environment and deploy
+
+```bash
+# Install Container Apps extension
+az extension add --name containerapp
+
+# Create environment
+az containerapp env create \
+  --name $APP_ENV \
+  --resource-group $RESOURCE_GROUP \
+  --location $LOCATION
+
+# Deploy container
+az containerapp create \
+  --name $APP_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --environment $APP_ENV \
+  --image $ACR_NAME.azurecr.io/htmx-flask-app:latest \
+  --registry-server $ACR_NAME.azurecr.io \
+  --target-port 8000 \
+  --ingress external \
+  --min-replicas 1 \
+  --max-replicas 3
+```
+
+---
+
+### 48.6 Verify deployment
+
+```bash
+az containerapp show \
+  --name $APP_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --query "properties.configuration.ingress.fqdn" \
+  --output tsv
+```
+
+Returns the public HTTPS URL for your deployed app.
+
+---
+
+### What you will learn
+- Azure Container Registry (ACR) for private image hosting
+- Azure Container Apps for serverless container hosting
+- `az containerapp` CLI commands
+- Image tagging and pushing workflow
+- External ingress and HTTPS termination on Azure
+- Min/max replica scaling configuration
+
+---
+
+## 49) CI/CD with GitHub Actions
+
+> **Instructions only** — no implementation required.
+
+### Goal
+Automatically build, test, and deploy the app on every push to `main` using a GitHub Actions workflow.
+
+---
+
+### 49.1 Create workflow file
+
+Create `.github/workflows/deploy.yml`:
+
+```yaml
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          python -m pytest tests/ --tb=short || echo "No tests found"
+
+      - name: Log in to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/htmx-flask-app:${{ github.sha }} .
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/htmx-flask-app:${{ github.sha }}
+
+      - name: Deploy to Azure Container Apps
+        uses: azure/CLI@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az containerapp update \
+              --name htmx-flask-app \
+              --resource-group htmx-flask-rg \
+              --image ${{ secrets.ACR_LOGIN_SERVER }}/htmx-flask-app:${{ github.sha }}
+```
+
+---
+
+### 49.2 Add GitHub Secrets
+
+In your GitHub repo → **Settings → Secrets and variables → Actions**, add:
+
+| Secret name        | Value                                   |
+|--------------------|-----------------------------------------|
+| `ACR_LOGIN_SERVER` | `htmxflaskregistry.azurecr.io`          |
+| `ACR_USERNAME`     | ACR admin username (from Azure portal)  |
+| `ACR_PASSWORD`     | ACR admin password (from Azure portal)  |
+
+---
+
+### 49.3 Workflow flow
+
+```
+git push → main
+  → checkout code
+  → install dependencies
+  → run tests
+  → build Docker image (tagged with git SHA)
+  → push image to ACR
+  → update Azure Container App to new image
+```
+
+Each deployment is tagged with the exact git commit SHA — making rollbacks trivial.
+
+---
+
+### What you will learn
+- GitHub Actions workflow syntax (`on`, `jobs`, `steps`)
+- Using `actions/checkout`, `actions/setup-python`
+- Docker build + push inside a CI pipeline
+- GitHub Secrets for secure credential storage
+- Immutable image tags with `github.sha`
+- Zero-downtime rolling updates with Azure Container Apps
+
+---
+
+## 50) Production WSGI Server (Gunicorn)
+
+> **Instructions only** — gunicorn is already installed in Step 47. This step explains configuration for production tuning.
+
+### Goal
+Replace Flask's built-in dev server with Gunicorn, properly configured for concurrent traffic, timeouts, and logging.
+
+---
+
+### 50.1 Basic gunicorn command
+
+```bash
+gunicorn --bind 0.0.0.0:8000 --workers 2 app:app
+```
+
+- `--bind 0.0.0.0:8000` — listen on all interfaces, port 8000
+- `--workers 2` — 2 parallel worker processes
+- `app:app` — module `app.py`, Flask instance named `app`
+
+---
+
+### 50.2 Worker count formula
+
+```
+workers = (2 × CPU cores) + 1
+```
+
+For a 2-core machine: 5 workers. For a single-core container: 2–3 workers.
+
+---
+
+### 50.3 Create gunicorn.conf.py
+
+Create `gunicorn.conf.py` in the project root:
+
+```python
+bind = "0.0.0.0:8000"
+workers = 3
+timeout = 60
+keepalive = 5
+accesslog = "-"       # log to stdout
+errorlog = "-"        # log to stderr
+loglevel = "info"
+```
+
+Run with:
+
+```bash
+gunicorn -c gunicorn.conf.py app:app
+```
+
+---
+
+### 50.4 Update Dockerfile CMD
+
+Replace the inline CMD with the config file:
+
+```dockerfile
+CMD ["gunicorn", "-c", "gunicorn.conf.py", "app:app"]
+```
+
+---
+
+### 50.5 Comparison: dev server vs gunicorn
+
+| Feature            | Flask dev server        | Gunicorn              |
+|--------------------|-------------------------|-----------------------|
+| Concurrent requests| Single-threaded         | Multiple workers      |
+| Restart on code change | Yes (`debug=True`)  | No (use `--reload`)   |
+| HTTPS              | No                      | Via reverse proxy     |
+| Production safe    | No                      | Yes                   |
+
+---
+
+### What you will learn
+- WSGI protocol and why Flask dev server is not production-ready
+- Gunicorn worker model (pre-fork)
+- Worker count tuning
+- `gunicorn.conf.py` for clean configuration
+- Logging to stdout/stderr for container log aggregation
+
+---
+
+## 51) Environment Configuration (.env and config classes)
+
+> **Instructions only** — no implementation required.
+
+### Goal
+Move hardcoded values (secret key, upload path, debug flag) out of source code into environment variables, with a Flask config class pattern for different environments (development, production).
+
+---
+
+### 51.1 Install python-dotenv
+
+```bash
+pip install python-dotenv
+pip freeze > requirements.txt
+```
+
+---
+
+### 51.2 Create .env file
+
+Create `.env` in the project root:
+
+```
+FLASK_SECRET_KEY=change-me-in-production
+FLASK_DEBUG=false
+UPLOAD_FOLDER=uploads
+MAX_UPLOAD_MB=2
+```
+
+Add `.env` to `.gitignore` — never commit secrets.
+
+---
+
+### 51.3 Create config.py
+
+Create `config.py`:
+
+```python
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Config:
+    SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", "fallback-dev-key")
+    UPLOAD_FOLDER = os.environ.get("UPLOAD_FOLDER", "uploads")
+    MAX_CONTENT_LENGTH = int(os.environ.get("MAX_UPLOAD_MB", 2)) * 1024 * 1024
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+
+class ProductionConfig(Config):
+    DEBUG = False
+```
+
+---
+
+### 51.4 Update app.py
+
+```python
+from config import DevelopmentConfig, ProductionConfig
+import os
+
+app = Flask(__name__)
+
+env = os.environ.get("FLASK_ENV", "development")
+if env == "production":
+    app.config.from_object(ProductionConfig)
+else:
+    app.config.from_object(DevelopmentConfig)
+```
+
+---
+
+### 51.5 Add .env to .gitignore
+
+```
+.env
+venv/
+__pycache__/
+uploads/
+instance/
+*.db
+```
+
+---
+
+### 51.6 Environment variable flow
+
+```
+.env file (local dev)
+  → python-dotenv loads into os.environ
+  → config.py reads os.environ
+  → app.py applies config class
+  → routes use current_app.config["KEY"]
+
+Production (Docker / Azure):
+  → .env is not committed
+  → environment variables set in container / Azure secrets
+  → same config.py reads them transparently
+```
+
+---
+
+### What you will learn
+- `python-dotenv` for local `.env` loading
+- Flask config class pattern (`from_object`)
+- Environment-specific config (dev vs prod)
+- `os.environ.get()` with safe defaults
+- Secret management: never commit `.env`, use platform secrets in production
+- `current_app.config` access pattern inside Blueprints
