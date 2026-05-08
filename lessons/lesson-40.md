@@ -1,0 +1,96 @@
+# Lesson 40: Production WSGI Server (Gunicorn)
+
+Included step: 50
+
+Learning objective:
+Master one focused concept from step 50 with precise, sequential execution.
+
+Editor notes:
+- Keep the exact sequence from source material.
+- Validate behavior at each test checkpoint before continuing.
+
+## Detailed walkthrough
+
+## 50) Production WSGI Server (Gunicorn)
+
+> **Instructions only** — gunicorn is already installed in Step 47. This step explains configuration for production tuning.
+
+### Goal
+Replace Flask's built-in dev server with Gunicorn, properly configured for concurrent traffic, timeouts, and logging.
+
+---
+
+### 50.1 Basic gunicorn command
+
+```bash
+gunicorn --bind 0.0.0.0:8000 --workers 2 app:app
+```
+
+- `--bind 0.0.0.0:8000` — listen on all interfaces, port 8000
+- `--workers 2` — 2 parallel worker processes
+- `app:app` — module `app.py`, Flask instance named `app`
+
+---
+
+### 50.2 Worker count formula
+
+```
+workers = (2 × CPU cores) + 1
+```
+
+For a 2-core machine: 5 workers. For a single-core container: 2–3 workers.
+
+---
+
+### 50.3 Create gunicorn.conf.py
+
+Create `gunicorn.conf.py` in the project root:
+
+```python
+bind = "0.0.0.0:8000"
+workers = 3
+timeout = 60
+keepalive = 5
+accesslog = "-"       # log to stdout
+errorlog = "-"        # log to stderr
+loglevel = "info"
+```
+
+Run with:
+
+```bash
+gunicorn -c gunicorn.conf.py app:app
+```
+
+---
+
+### 50.4 Update Dockerfile CMD
+
+Replace the inline CMD with the config file:
+
+```dockerfile
+CMD ["gunicorn", "-c", "gunicorn.conf.py", "app:app"]
+```
+
+---
+
+### 50.5 Comparison: dev server vs gunicorn
+
+| Feature            | Flask dev server        | Gunicorn              |
+|--------------------|-------------------------|-----------------------|
+| Concurrent requests| Single-threaded         | Multiple workers      |
+| Restart on code change | Yes (`debug=True`)  | No (use `--reload`)   |
+| HTTPS              | No                      | Via reverse proxy     |
+| Production safe    | No                      | Yes                   |
+
+---
+
+### What you will learn
+- WSGI protocol and why Flask dev server is not production-ready
+- Gunicorn worker model (pre-fork)
+- Worker count tuning
+- `gunicorn.conf.py` for clean configuration
+- Logging to stdout/stderr for container log aggregation
+
+---
+
