@@ -1,0 +1,33 @@
+<tr>
+	<td>{{ employee.id }}</td>
+	<td>
+		<input
+			type="text"
+			name="name"
+			value="{{ employee.name }}">
+	</td>
+	<td>
+		<input
+			type="text"
+			name="department"
+			value="{{ employee.department }}">
+	</td>
+	<td>
+		<button
+			type="button"
+			hx-put="/update-employee/{{ employee.id }}"
+			hx-target="closest tr"
+			hx-swap="outerHTML"
+			hx-include="closest tr">
+			Save
+		</button>
+
+		<button
+			type="button"
+			hx-get="/employee-row/{{ employee.id }}"
+			hx-target="closest tr"
+			hx-swap="outerHTML">
+			Cancel
+		</button>
+	</td>
+</tr>

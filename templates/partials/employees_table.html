@@ -1,0 +1,16 @@
+<table border="1" cellpadding="10">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Department</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+
+	<tbody>
+	{% for employee in employees %}
+		{% include "partials/employee_row.html" %}
+	{% endfor %}
+	</tbody>
+</table>

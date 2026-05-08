@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>HTMX Learning</title>
+
+	<!-- HTMX CDN -->
+	<script src="https://unpkg.com/htmx.org@1.9.12"></script>
+
+	<!-- App Stylesheet -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+	<h1>HTMX + Flask</h1>
+
+	<button
+		hx-get="/hello"
+		hx-target="#result">
+		Click Me
+	</button>
+
+	<div id="result"></div>
+
+	<hr>
+
+	<h2>Live Search Demo</h2>
+
+	<input
+		type="text"
+		name="query"
+		placeholder="Type something..."
+		hx-get="/search"
+		hx-trigger="keyup changed delay:500ms"
+		hx-target="#search-results"
+		hx-indicator="#loading"
+		hx-swap="innerHTML">
+
+	<p id="loading" style="display:none;">
+		Loading...
+	</p>
+
+	<div id="search-results"></div>
+
+	<hr>
+
+	<h2>Automatic Content Loading</h2>
+
+	<div
+		hx-get="/latest"
+		hx-trigger="load, employee-added from:body"
+		hx-target="this">
+		Loading latest updates...
+	</div>
+
+	<hr>
+
+	<h2>Employee Table</h2>
+
+	<div
+		hx-get="/employees"
+		hx-trigger="load, employee-added from:body"
+		hx-target="this">
+		Loading employees...
+	</div>
+
+	<hr>
+
+	<h2>Add Employee</h2>
+
+	<form
+		id="employee-form"
+		hx-post="/add-employee"
+		hx-target="#form-result">
+		<input
+			type="text"
+			name="name"
+			placeholder="Employee Name"
+			required>
+
+		<input
+			type="text"
+			name="department"
+			placeholder="Department"
+			required>
+
+		<button type="submit">
+			Add Employee
+		</button>
+	</form>
+
+	<div id="form-result"></div>
+
+</body>
+</html>

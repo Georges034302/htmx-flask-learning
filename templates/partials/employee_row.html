@@ -1,0 +1,22 @@
+<tr>
+	<td>{{ employee.id }}</td>
+	<td>{{ employee.name }}</td>
+	<td>{{ employee.department }}</td>
+	<td>
+		<button
+			hx-get="/edit-employee/{{ employee.id }}"
+			hx-target="closest tr"
+			hx-swap="outerHTML">
+			Edit
+		</button>
+
+		<button
+			hx-delete="/delete-employee/{{ employee.id }}"
+			hx-confirm="Are you sure?"
+			hx-trigger="click"
+			hx-target="closest tr"
+			hx-swap="outerHTML">
+			Delete
+		</button>
+	</td>
+</tr>
