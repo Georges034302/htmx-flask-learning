@@ -5,7 +5,6 @@ Included step: 50
 ## Concept
 Production WSGI Server (Gunicorn).
 
-## Step flow
 
 ## 50) Production WSGI Server (Gunicorn)
 

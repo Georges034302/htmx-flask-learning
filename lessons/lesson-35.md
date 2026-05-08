@@ -5,7 +5,6 @@ Included step: 45
 ## Concept
 Authentication (Session-Based Login).
 
-## Step flow
 
 ## 45) Authentication (Session-Based Login)
 

@@ -5,7 +5,6 @@ Included step: 34
 ## Concept
 Add Sorting to the Employee Table.
 
-## Step flow
 
 ## 34) Add Sorting to the Employee Table
 

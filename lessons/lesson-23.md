@@ -5,7 +5,6 @@ Included step: 33
 ## Concept
 Add Real-Time Table Filtering with HTMX.
 
-## Step flow
 
 ## 33) Add Real-Time Table Filtering with HTMX
 

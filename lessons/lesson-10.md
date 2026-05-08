@@ -5,7 +5,6 @@ Included step: 20
 ## Concept
 Build your first dynamic table component.
 
-## Step flow
 
 ## 20) Build your first dynamic table component
 

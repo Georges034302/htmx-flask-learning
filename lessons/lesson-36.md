@@ -5,7 +5,6 @@ Included step: 46
 ## Concept
 File Uploads.
 
-## Step flow
 
 ## 46) File Uploads
 

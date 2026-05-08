@@ -5,7 +5,6 @@ Included step: 49
 ## Concept
 CI/CD with GitHub Actions.
 
-## Step flow
 
 ## 49) CI/CD with GitHub Actions
 

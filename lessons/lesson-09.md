@@ -5,7 +5,6 @@ Included step: 19
 ## Concept
 Trigger requests automatically on page load.
 
-## Step flow
 
 ## 19) Trigger requests automatically on page load
 

@@ -13,7 +13,6 @@ Project Scaffold and First HTMX Requests.
 - Step 11) Trigger your first live HTMX request
 - Step 12) Inspect the HTMX request using browser developer tools
 
-## Step flow
 
 ## 7) Create the initial project structure
 

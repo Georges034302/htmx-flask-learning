@@ -5,7 +5,6 @@ Included step: 35
 ## Concept
 Add Pagination to the Employee Table.
 
-## Step flow
 
 ## 35) Add Pagination to the Employee Table
 

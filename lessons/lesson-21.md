@@ -5,7 +5,6 @@ Included step: 31
 ## Concept
 Add Empty-State Handling ("No Results Found").
 
-## Step flow
 
 ## 31) Add Empty-State Handling ("No Results Found")
 

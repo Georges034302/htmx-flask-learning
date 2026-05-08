@@ -5,7 +5,6 @@ Included step: 22
 ## Concept
 Automatically refresh the employee table after form submission.
 
-## Step flow
 
 ## 22) Automatically refresh the employee table after form submission
 

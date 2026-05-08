@@ -5,7 +5,6 @@ Included step: 51
 ## Concept
 Environment Configuration (.env and config classes).
 
-## Step flow
 
 ## 51) Environment Configuration (.env and config classes)
 

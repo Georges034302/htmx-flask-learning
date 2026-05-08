@@ -5,7 +5,6 @@ Included step: 39
 ## Concept
 Clear the Form Automatically After Successful Submission.
 
-## Step flow
 
 ## 39) Clear the Form Automatically After Successful Submission
 

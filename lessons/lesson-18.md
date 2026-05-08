@@ -5,7 +5,6 @@ Included step: 28
 ## Concept
 Refactor the Flask Application Structure.
 
-## Step flow
 
 ## 28) Refactor the Flask Application Structure
 

@@ -5,7 +5,6 @@ Included step: 26
 ## Concept
 Add a Cancel button to inline editing.
 
-## Step flow
 
 ## 26) Add a Cancel button to inline editing
 

@@ -5,7 +5,6 @@ Included step: 42
 ## Concept
 Add Modal Windows for Employee Details.
 
-## Step flow
 
 ## 42) Add Modal Windows for Employee Details
 

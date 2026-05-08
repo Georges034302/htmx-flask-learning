@@ -5,7 +5,6 @@ Included step: 23
 ## Concept
 Delete employees dynamically with hx-delete.
 
-## Step flow
 
 ## 23) Delete employees dynamically with hx-delete
 

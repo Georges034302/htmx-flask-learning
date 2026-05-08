@@ -5,8 +5,6 @@ Included step: 18
 ## Concept
 Replace vs append content with hx-swap.
 
-## Step flow
-
 ## 18) Replace vs append content with hx-swap
 
 Now you will learn how HTMX injects returned HTML into the page.

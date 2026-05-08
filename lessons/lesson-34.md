@@ -5,7 +5,6 @@ Included step: 44
 ## Concept
 Form Validation System.
 
-## Step flow
 
 ## 44) Form Validation System
 

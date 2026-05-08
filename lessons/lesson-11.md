@@ -5,7 +5,6 @@ Included step: 21
 ## Concept
 Create your first HTMX form submission with hx-post.
 
-## Step flow
 
 ## 21) Create your first HTMX form submission with hx-post
 

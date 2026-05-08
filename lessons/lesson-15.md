@@ -5,7 +5,6 @@ Included step: 25
 ## Concept
 Edit employees inline with hx-put.
 
-## Step flow
 
 ## 25) Edit employees inline with hx-put
 

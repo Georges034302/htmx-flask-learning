@@ -5,7 +5,6 @@ Included step: 40
 ## Concept
 Add Auto-Dismissing Flash Messages.
 
-## Step flow
 
 ## 40) Add Auto-Dismissing Flash Messages
 

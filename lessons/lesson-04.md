@@ -5,8 +5,6 @@ Included step: 14
 ## Concept
 Understand how input values move from HTMX attributes to Flask request arguments.
 
-## Step flow
-
 ## 14) Send input data from HTMX to Flask
 
 Make the server receive the actual text being typed.

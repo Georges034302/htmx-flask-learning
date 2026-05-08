@@ -5,7 +5,6 @@ Included step: 47
 ## Concept
 Dockerize the App.
 
-## Step flow
 
 ## 47) Dockerize the App
 

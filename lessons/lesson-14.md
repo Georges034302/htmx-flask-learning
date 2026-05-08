@@ -5,7 +5,6 @@ Included step: 24
 ## Concept
 Remove rows instantly with hx-swap="outerHTML".
 
-## Step flow
 
 ## 24) Remove rows instantly with hx-swap="outerHTML"
 

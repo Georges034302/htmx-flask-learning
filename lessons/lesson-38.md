@@ -5,7 +5,6 @@ Included step: 48
 ## Concept
 Deploy to Azure.
 
-## Step flow
 
 ## 48) Deploy to Azure
 

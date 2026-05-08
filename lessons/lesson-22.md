@@ -5,7 +5,6 @@ Included step: 32
 ## Concept
 Add Dynamic Search Result Count.
 
-## Step flow
 
 ## 32) Add Dynamic Search Result Count
 

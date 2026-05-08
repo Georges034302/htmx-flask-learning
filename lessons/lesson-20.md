@@ -5,7 +5,6 @@ Included step: 30
 ## Concept
 Add Real Search Filtering by Multiple Fields.
 
-## Step flow
 
 ## 30) Add Real Search Filtering by Multiple Fields
 

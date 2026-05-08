@@ -5,7 +5,6 @@ Included step: 37
 ## Concept
 Flash Message Categories (success, warning, error).
 
-## Step flow
 
 ## 37) Flash Message Categories (success, warning, error)
 

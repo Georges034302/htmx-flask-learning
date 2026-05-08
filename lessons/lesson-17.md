@@ -5,7 +5,6 @@ Included step: 27
 ## Concept
 Add CSS Styling and Improve UX Structure.
 
-## Step flow
 
 ## 27) Add CSS Styling and Improve UX Structure
 

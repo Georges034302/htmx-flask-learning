@@ -5,8 +5,6 @@ Included step: 16
 ## Concept
 Return dynamic HTML fragments instead of plain text.
 
-## Step flow
-
 ## 16) Return dynamic HTML fragments instead of plain text
 
 Current route returns:

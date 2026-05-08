@@ -5,8 +5,6 @@ Included step: 15
 ## Concept
 Add smart request timing with delay.
 
-## Step flow
-
 ## 15) Add smart request timing with delay
 
 Right now, every keystroke sends a request immediately.

@@ -5,7 +5,6 @@ Included step: 41
 ## Concept
 Add Polling with Automatic Table Refresh.
 
-## Step flow
 
 ## 41) Add Polling with Automatic Table Refresh
 

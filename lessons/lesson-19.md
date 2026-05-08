@@ -5,7 +5,6 @@ Included step: 29
 ## Concept
 Introduce Flask Blueprints (Modular Route Organization).
 
-## Step flow
 
 ## 29) Introduce Flask Blueprints (Modular Route Organization)
 

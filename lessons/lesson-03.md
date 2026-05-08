@@ -5,8 +5,6 @@ Included step: 13
 ## Concept
 Your first reactive HTMX interaction with hx-trigger.
 
-## Step flow
-
 ## 13) Your first reactive HTMX interaction with hx-trigger
 
 Make HTMX send requests automatically while typing.

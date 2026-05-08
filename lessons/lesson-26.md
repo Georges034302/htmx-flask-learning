@@ -5,7 +5,6 @@ Included step: 36
 ## Concept
 Add Flash Messages for Global User Feedback.
 
-## Step flow
 
 ## 36) Add Flash Messages for Global User Feedback
 

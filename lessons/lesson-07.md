@@ -5,8 +5,6 @@ Included step: 17
 ## Concept
 Add loading indicators with hx-indicator.
 
-## Step flow
-
 ## 17) Add loading indicators with hx-indicator
 
 Make the UI visually react while waiting for the server.

@@ -13,7 +13,6 @@ Environment and Flask Foundations.
 - Step 5) Install Flask
 - Step 6) Create and verify requirements file
 
-## Step flow
 
 ## 1) Check Python version
 

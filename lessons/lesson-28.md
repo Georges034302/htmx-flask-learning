@@ -5,7 +5,6 @@ Included step: 38
 ## Concept
 Prevent Duplicate Employees + Show Flash Message.
 
-## Step flow
 
 ## 38) Prevent Duplicate Employees + Show Flash Message
 

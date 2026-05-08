@@ -5,7 +5,6 @@ Included step: 43
 ## Concept
 Real Database Integration (SQLite + SQLAlchemy).
 
-## Step flow
 
 ## 43) Real Database Integration (SQLite + SQLAlchemy)
 
