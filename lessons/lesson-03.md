@@ -2,25 +2,14 @@
 
 Included step: 13
 
-Learning objective:
-Master one focused concept from step 13 with precise, sequential execution.
+## Concept
+Your first reactive HTMX interaction with hx-trigger.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 13) Your first reactive HTMX interaction with hx-trigger
 
-Now we will make HTMX send requests automatically while typing.
-
-This is the beginning of:
-- Live search
-- Autocomplete
-- Reactive forms
-- Dynamic filtering
-- WITHOUT JavaScript
+Make HTMX send requests automatically while typing.
 
 ### 13.1 Add new /search route to app.py
 
@@ -36,7 +25,6 @@ Your `app.py` should now contain BOTH `/hello` and `/search` routes.
 
 Save the file.
 
-Important observation:
 - Because `debug=True`, Flask automatically reloads the server
 - You do NOT need to restart manually
 - Watch terminal output for reload activity
@@ -60,13 +48,9 @@ Add this BELOW the button section:
 <div id="search-results"></div>
 ```
 
-What is new here:
+- `hx-trigger="keyup"` sends a request on each key release.
 
-**hx-trigger="keyup":**
-- Tells HTMX: "Send the request every time the user releases a keyboard key"
-- This creates reactive behavior
-
-Flow:
+Request flow:
 1. User types
 2. keyup event fires
 3. HTMX sends GET /search
@@ -87,18 +71,8 @@ Type inside the input field.
 
 Expected:
 - "Searching..." appears dynamically while typing
-- WITHOUT page refresh or JavaScript
+- without page refresh or JavaScript
 
-Important mental breakthrough:
-- You just created reactive frontend behavior
-- Event-driven UI
-- Live requests
-- Using only HTML attributes and Flask routes
-
-This is a major HTMX capability.
-
-Important note:
 - Currently `return "<p>Searching...</p>"` is static
 - Later you will pass query parameters, dynamic values, and filtered data
-- This evolves naturally into live search, autocomplete, and filtering systems
 

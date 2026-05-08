@@ -2,14 +2,10 @@
 
 Included step: 39
 
-Learning objective:
-Master one focused concept from step 39 with precise, sequential execution.
+## Concept
+Clear the Form Automatically After Successful Submission.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 39) Clear the Form Automatically After Successful Submission
 
@@ -51,15 +47,5 @@ After successful add:
 
 No page refresh is required.
 
-### Architectural note
-This is minimal, intentional JavaScript. The backend remains the source of truth by emitting events; the frontend only reacts to those events.
-
-### What you learned
-- HTMX custom event handling in plain JavaScript
-- Form reset automation with `.reset()`
-- Backend-triggered client behavior
-- Minimal-JS enhancement pattern in HTMX apps
-- Event-driven UX flow
-
----
+**Note:** This is minimal JavaScript. The backend remains the source of truth by emitting events; the frontend only reacts to those events.
 

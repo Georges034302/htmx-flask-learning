@@ -2,14 +2,10 @@
 
 Included step: 44
 
-Learning objective:
-Master one focused concept from step 44 with precise, sequential execution.
+## Concept
+Form Validation System.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 44) Form Validation System
 
@@ -136,15 +132,6 @@ POST /add-employee
 | Name: ``, Dept: ``            | Both errors rendered                         |
 | Name: `Alice`, Dept: `IT`     | Duplicate warning (Alice already exists)     |
 | Name: `Zara`, Dept: `Finance` | Success — employee added                     |
-
----
-
-### What you will learn
-- Server-side field validation pattern
-- Reusable validator module
-- Inline error rendering with HTMX partials
-- Layered validation (field checks → business rules → persistence)
-- Separation of validation logic from route logic
 
 ---
 

@@ -2,14 +2,10 @@
 
 Included step: 30
 
-Learning objective:
-Master one focused concept from step 30 with precise, sequential execution.
+## Concept
+Add Real Search Filtering by Multiple Fields.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 30) Add Real Search Filtering by Multiple Fields
 
@@ -35,12 +31,4 @@ for employee in employees:
 | `Finance`| Charlie           |
 | `Emma`   | Emma              |
 | `HR`     | Bob               |
-
-### What you learned
-- Multi-field backend filtering
-- OR logic for search matching
-- Server-side search architecture vs frontend JS filtering
-- HTMX philosophy: backend owns logic and rendering, frontend stays lightweight
-
----
 

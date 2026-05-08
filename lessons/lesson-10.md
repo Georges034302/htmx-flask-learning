@@ -2,20 +2,15 @@
 
 Included step: 20
 
-Learning objective:
-Master one focused concept from step 20 with precise, sequential execution.
+## Concept
+Build your first dynamic table component.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 20) Build your first dynamic table component
 
 Now we move from simple lists to structured UI rendering.
 
-Goal:
 - Reusable table rendering
 - Structured HTML fragments
 - Server-driven table UI
@@ -41,7 +36,6 @@ def get_employees():
     )
 ```
 
-What this does:
 - Returns only a table fragment
 - Not a full page
 - Matches HTMX partial architecture
@@ -74,7 +68,7 @@ Create file: `templates/partials/employees_table.html`
 </table>
 ```
 
-Jinja observation:
+**Note:** Jinja observation:
 - `{{ employee.name }}` uses dot notation on dictionary data
 - Bracket notation works too
 
@@ -96,7 +90,6 @@ Add below latest updates section:
 <div id="employee-table"></div>
 ```
 
-What this does:
 - Button click sends request to `/employees`
 - Flask renders table partial
 - HTMX injects table into `#employee-table`
@@ -111,14 +104,7 @@ Expected:
 - No JavaScript table rendering
 - No JSON API response required
 
-Why this is powerful:
+**Note:**
 - Traditional SPA: JSON -> JS -> build table
 - HTMX: Flask -> render HTML table -> inject
-
-What you learned:
-- Partial table rendering
-- Reusable server components
-- Structured UI injection
-- Dynamic table loading
-- Enterprise HTMX pattern
 

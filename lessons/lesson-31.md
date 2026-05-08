@@ -2,14 +2,10 @@
 
 Included step: 41
 
-Learning objective:
-Master one focused concept from step 41 with precise, sequential execution.
+## Concept
+Add Polling with Automatic Table Refresh.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 41) Add Polling with Automatic Table Refresh
 
@@ -44,12 +40,4 @@ No manual action or page refresh is required.
 ### 41.3 Operational note
 
 Polling improves synchronization but adds recurring server requests. Choose interval based on context (`5s`, `10s`, `30s`, etc.) to balance freshness and load.
-
-### What you learned
-- HTMX polling with `every 5s`
-- Periodic trigger-based synchronization
-- Live dashboard behavior without custom timer code
-- Simple server-driven refresh architecture
-
----
 

@@ -2,14 +2,10 @@
 
 Included step: 21
 
-Learning objective:
-Master one focused concept from step 21 with precise, sequential execution.
+## Concept
+Create your first HTMX form submission with hx-post.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 21) Create your first HTMX form submission with hx-post
 
@@ -17,7 +13,6 @@ So far you have fetched data, loaded fragments, and updated content dynamically.
 
 Now you will send data to the server.
 
-Goal:
 - Create a form
 - Submit data with HTMX
 - Flask receives form data
@@ -52,7 +47,6 @@ def add_employee():
     """
 ```
 
-Important concepts:
 - `methods=["POST"]` allows POST requests.
 - `request.form.get(...)` reads submitted form data.
 - This is different from `request.args` (query parameters).
@@ -111,12 +105,4 @@ Observe Network tab:
 - POST request
 - Form payload
 - HTML response
-
-What you learned:
-- `hx-post`
-- Async form submission
-- POST requests
-- Form serialization
-- `request.form`
-- Server-driven UI updates
 

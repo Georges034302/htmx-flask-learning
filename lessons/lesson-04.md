@@ -2,20 +2,14 @@
 
 Included step: 14
 
-Learning objective:
-Master one focused concept from step 14 with precise, sequential execution.
+## Concept
+Understand how input values move from HTMX attributes to Flask request arguments.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 14) Send input data from HTMX to Flask
 
-Now we will make the server receive the actual text being typed.
-
-This is a major step because your UI becomes truly dynamic.
+Make the server receive the actual text being typed.
 
 ### 14.1 Update the input field
 
@@ -31,7 +25,6 @@ Modify your existing input to include `name="query"`:
     hx-target="#search-results">
 ```
 
-Important concept:
 - `name="query"` works exactly like a normal HTML form field
 - HTMX automatically sends `query=<typed value>` to the backend
 
@@ -43,7 +36,6 @@ Modify your imports:
 from flask import Flask, render_template, request
 ```
 
-Why:
 - `request` allows Flask to access query parameters, form values, and HTTP data
 
 ### 14.3 Update /search route
@@ -57,7 +49,6 @@ def search():
     return f"<p>You typed: {query}</p>"
 ```
 
-What this does:
 - `request.args.get("query", "")` retrieves the query parameter from the URL
 - Example: if user types "apple", HTMX sends `/search?query=apple`
 - Flask receives `apple` in the `query` variable
@@ -65,38 +56,18 @@ What this does:
 
 ### 14.4 Test it
 
-Refresh your browser.
+Refresh and type "hello".
 
-Now type: **hello**
-
-Expected result:
+Expected:
 - `You typed: hello` appears dynamically while typing
-- Without page refresh or native JavaScript
+- No full page refresh
 
-Critical breakthrough:
-- You just implemented client → server communication
-- Dynamic input binding
-- Live request processing
-- Server-generated reactive UI
-- WITHOUT JavaScript frameworks
+- `name="query"` makes HTMX send `/search?query=<value>`.
+- Flask reads that value with `request.args.get("query")` and returns HTML.
+- HTMX swaps that HTML into `#search-results`.
 
-Important architecture insight:
-- HTMX automatically serializes input values
-- You do NOT manually build fetch requests, JSON payloads, or event listeners
-- HTML itself becomes interactive
-
-Inspect Network tab again:
+Verify in DevTools Network:
 - Open DevTools → **Network**
-- Type something
-- Observe requests like: `/search?query=test`
-- This demonstrates query parameters in action
-
-What you learned:
-- Input serialization
-- Query parameters
-- Dynamic server rendering
-- Live request handling
-- Reactive server-driven UI
-
-This is foundational web engineering.
+- Type `test`
+- Confirm `GET /search?query=test` and an HTML response body
 

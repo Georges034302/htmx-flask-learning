@@ -2,25 +2,13 @@
 
 Included step: 22
 
-Learning objective:
-Master one focused concept from step 22 with precise, sequential execution.
+## Concept
+Automatically refresh the employee table after form submission.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 22) Automatically refresh the employee table after form submission
 
-Now we connect components together.
-
-Current state before this step:
-- Form submission works
-- Employee gets added
-- Table does not refresh automatically
-
-Goal:
 - After form submit, employee is added and table refreshes automatically
 - Keep UI synchronized without page refresh or custom JavaScript
 
@@ -54,7 +42,6 @@ Use this full section:
 </div>
 ```
 
-Important concept:
 - `employee-added from:body` means listen for custom `employee-added` event from page body.
 - This enables event-driven component updates.
 
@@ -127,11 +114,4 @@ Observe in DevTools network:
 - POST `/add-employee`
 - Trigger fires
 - GET `/employees`
-
-What you learned:
-- Custom HTMX events
-- `HX-Trigger` response headers
-- Event-driven rendering
-- Component synchronization
-- Reactive UI architecture
 

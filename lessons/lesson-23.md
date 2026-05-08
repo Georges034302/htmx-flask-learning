@@ -2,14 +2,10 @@
 
 Included step: 33
 
-Learning objective:
-Master one focused concept from step 33 with precise, sequential execution.
+## Concept
+Add Real-Time Table Filtering with HTMX.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 33) Add Real-Time Table Filtering with HTMX
 
@@ -76,13 +72,4 @@ Added `id="employee-table-container"` so the search input can target it:
 - Typing in the search box sends `/employees?query=...` and replaces the table contents live.
 - Adding an employee fires `employee-added` and the table refreshes automatically.
 - Single unified component owns display, filtering, and updates.
-
-### What you learned
-- Component-driven filtering
-- Unified reactive rendering
-- Live table updates with server-side search
-- Single source of UI truth
-- Real dashboard-style HTMX architecture
-
----
 

@@ -2,14 +2,10 @@
 
 Included step: 42
 
-Learning objective:
-Master one focused concept from step 42 with precise, sequential execution.
+## Concept
+Add Modal Windows for Employee Details.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 42) Add Modal Windows for Employee Details
 
@@ -25,7 +21,6 @@ New routes:
 def employee_details(id):
     ...
     return render_template("partials/employee_details_modal.html", employee=employee)
-
 
 @main.route("/close-modal")
 def close_modal():
@@ -84,21 +79,4 @@ for centered overlay rendering and clean modal presentation.
 3. Modal appears with employee details.
 4. Click **Close**.
 5. Modal disappears without refreshing the page.
-
-### What you learned
-- Modal rendering with HTMX partials
-- Targeted overlay updates via `hx-target`
-- Server-driven detail views
-- Reusable modal mount pattern
-
----
-
-## 43+) Next Steps Sequence (Planned)
-
-Per your request, we are moving step-by-step and some steps may remain planned-only.
-
-- **43)** Real Database Integration (SQLite + SQLAlchemy) — see full instructions below
-- **44)** Form Validation System — planned (after DB model exists)
-
----
 

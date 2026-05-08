@@ -2,14 +2,10 @@
 
 Included step: 45
 
-Learning objective:
-Master one focused concept from step 45 with precise, sequential execution.
+## Concept
+Authentication (Session-Based Login).
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 45) Authentication (Session-Based Login)
 
@@ -96,7 +92,6 @@ def login():
         return redirect(url_for("main.login"))
 
     return render_template("login.html")
-
 
 @main.route("/logout")
 def logout():
@@ -214,16 +209,6 @@ GET /logout
 | Login with `admin/password123`| Redirected to dashboard             |
 | Click Logout                  | Redirected to `/login`              |
 | Visit `/` after logout        | Redirected to `/login`              |
-
----
-
-### What you will learn
-- Flask `session` for stateful auth
-- Login/logout route patterns
-- Custom `login_required` decorator with `functools.wraps`
-- Protecting routes declaratively
-- Redirect flow for unauthenticated access
-- Separating auth logic into its own utility module
 
 ---
 

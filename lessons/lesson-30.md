@@ -2,14 +2,10 @@
 
 Included step: 40
 
-Learning objective:
-Master one focused concept from step 40 with precise, sequential execution.
+## Concept
+Add Auto-Dismissing Flash Messages.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 40) Add Auto-Dismissing Flash Messages
 
@@ -60,12 +56,4 @@ Add an employee:
 - disappears automatically (~3 seconds)
 
 No page refresh required.
-
-### What you learned
-- HTMX lifecycle events (`htmx:afterSwap`)
-- Timed DOM cleanup for notifications
-- Auto-dismiss UX pattern
-- Lightweight JS enhancements with HTMX
-
----
 

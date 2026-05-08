@@ -2,14 +2,10 @@
 
 Included step: 35
 
-Learning objective:
-Master one focused concept from step 35 with precise, sequential execution.
+## Concept
+Add Pagination to the Employee Table.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 35) Add Pagination to the Employee Table
 
@@ -90,15 +86,5 @@ Navigation buttons appear below the table and preserve current query and sort:
 
 DevTools shows requests like `/employees?query=it&sort=name&page=2`.
 
-### Architectural note
-The server slices, sorts, and filters before rendering. The frontend receives only the current page as ready HTML — no full dataset shipped to the browser.
-
-### What you learned
-- Server-side pagination
-- Integer ceiling division for total pages
-- State-preserving navigation (query + sort + page)
-- Reactive page controls with HTMX
-- Scalable table architecture
-
----
+**Note:** The server slices, sorts, and filters before rendering. The frontend receives only the current page as ready HTML — no full dataset shipped to the browser.
 

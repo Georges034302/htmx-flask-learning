@@ -2,14 +2,10 @@
 
 Included step: 38
 
-Learning objective:
-Master one focused concept from step 38 with precise, sequential execution.
+## Concept
+Prevent Duplicate Employees + Show Flash Message.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 38) Prevent Duplicate Employees + Show Flash Message
 
@@ -61,15 +57,5 @@ POST /add-employee
 | Add "alice" (lower)  | Same — case-insensitive match            |
 | Add "Zara" (new)     | Flash: "Employee Zara added successfully." — table updates |
 
-### Architectural note
-Validation lives entirely on the server. The frontend receives only HTML feedback — no client-side duplicate checking required.
-
-### What you learned
-- Server-side validation architecture
-- Case-insensitive duplicate detection with `next()` + generator
-- Conditional reactive responses (different `HX-Trigger` per outcome)
-- Business rule enforcement in Flask routes
-- Backend-driven feedback for invalid input
-
----
+**Note:** Validation lives entirely on the server. The frontend receives only HTML feedback — no client-side duplicate checking required.
 

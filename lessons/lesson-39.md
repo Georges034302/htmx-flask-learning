@@ -2,14 +2,10 @@
 
 Included step: 49
 
-Learning objective:
-Master one focused concept from step 49 with precise, sequential execution.
+## Concept
+CI/CD with GitHub Actions.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 49) CI/CD with GitHub Actions
 
@@ -104,16 +100,6 @@ git push → main
 ```
 
 Each deployment is tagged with the exact git commit SHA — making rollbacks trivial.
-
----
-
-### What you will learn
-- GitHub Actions workflow syntax (`on`, `jobs`, `steps`)
-- Using `actions/checkout`, `actions/setup-python`
-- Docker build + push inside a CI pipeline
-- GitHub Secrets for secure credential storage
-- Immutable image tags with `github.sha`
-- Zero-downtime rolling updates with Azure Container Apps
 
 ---
 

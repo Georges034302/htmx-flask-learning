@@ -2,14 +2,10 @@
 
 Included step: 27
 
-Learning objective:
-Master one focused concept from step 27 with precise, sequential execution.
+## Concept
+Add CSS Styling and Improve UX Structure.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 27) Add CSS Styling and Improve UX Structure
 

@@ -2,14 +2,10 @@
 
 Included step: 46
 
-Learning objective:
-Master one focused concept from step 46 with precise, sequential execution.
+## Concept
+File Uploads.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 46) File Uploads
 
@@ -139,18 +135,6 @@ def upload_file():
 | Submit with no file selected    | Error: "No file selected."               |
 | Upload a `.exe` file            | Error: "File type not allowed."          |
 | Upload file > 2 MB              | Flask returns 413 Request Entity Too Large |
-
----
-
-### What you learned
-- `hx-encoding="multipart/form-data"` for HTMX file uploads
-- `secure_filename` for path traversal prevention
-- Server-side file type whitelisting
-- `MAX_CONTENT_LENGTH` for size enforcement
-- `current_app` for accessing config inside Blueprints
-- Inline upload feedback with HTMX partials
-
----
 
 ---
 

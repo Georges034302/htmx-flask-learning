@@ -2,20 +2,15 @@
 
 Included step: 24
 
-Learning objective:
-Master one focused concept from step 24 with precise, sequential execution.
+## Concept
+Remove rows instantly with hx-swap="outerHTML".
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 24) Remove rows instantly with hx-swap="outerHTML"
 
 Now deletion becomes fine-grained and does not require full table refresh.
 
-Goal:
 - Delete only the affected row
 - Keep the rest of the table intact
 - Avoid secondary table reload request
@@ -96,10 +91,4 @@ Expected:
 Observe in DevTools:
 - One DELETE request only
 - No follow-up GET `/employees` request for delete
-
-What you learned:
-- `outerHTML` swaps
-- Closest-element targeting
-- Fine-grained DOM updates
-- Efficient reactive rendering
 

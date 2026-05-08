@@ -2,14 +2,10 @@
 
 Included step: 36
 
-Learning objective:
-Master one focused concept from step 36 with precise, sequential execution.
+## Concept
+Add Flash Messages for Global User Feedback.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 36) Add Flash Messages for Global User Feedback
 
@@ -96,19 +92,9 @@ One POST now triggers both a table refresh and a notification refresh.
 }
 ```
 
-Note:
 - Category-specific styles (`.message.warning`, `.message.error`) are added in Lesson 27.
 
 ### 36.8 Test
 
 Add an employee → success message appears next to the table title, and table updates — no page refresh.
-
-### What you learned
-- Flask `flash()` and `get_flashed_messages()`
-- Session-backed temporary notifications
-- Global reactive UI regions
-- Multi-component synchronization via `HX-Trigger`
-- Event-driven UX architecture
-
----
 

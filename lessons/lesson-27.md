@@ -2,14 +2,10 @@
 
 Included step: 37
 
-Learning objective:
-Master one focused concept from step 37 with precise, sequential execution.
+## Concept
+Flash Message Categories (success, warning, error).
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 37) Flash Message Categories (success, warning, error)
 
@@ -94,15 +90,6 @@ Replace the single hardcoded green `.message` rule with a neutral base and three
 | Add a new employee            | Green (success)        |
 | Add a duplicate employee      | Yellow (warning)       |
 | Login with wrong password     | Red (error)            |
-
----
-
-### What you learned
-- `flash(message, category)` — Flask's two-argument flash signature
-- `get_flashed_messages(with_categories=True)` — unpacking tuples in Jinja
-- CSS class injection via Jinja template variables
-- Separating visual urgency levels with colour-coded feedback
-- Extending an existing system without changing its architecture
 
 ---
 

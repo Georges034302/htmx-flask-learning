@@ -2,20 +2,15 @@
 
 Included step: 25
 
-Learning objective:
-Master one focused concept from step 25 with precise, sequential execution.
+## Concept
+Edit employees inline with hx-put.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 25) Edit employees inline with hx-put
 
 Now you complete full CRUD by adding inline Update behavior.
 
-Goal:
 - Click Edit
 - Load inline edit form inside the row
 - Save asynchronously with PUT
@@ -36,7 +31,6 @@ In `templates/partials/employees_table.html` rows, add Edit above Delete:
 </button>
 ```
 
-What this does:
 - Sends GET request
 - Flask returns editable row HTML
 - Current row is replaced
@@ -185,7 +179,6 @@ def update_employee(id):
     )
 ```
 
-Important concept:
 - `hx-put` sends HTTP PUT for update operations.
 
 ### 25.7 Test it
@@ -198,12 +191,4 @@ Refresh page, then:
 - Row updates dynamically
 
 No page refresh and no frontend framework needed.
-
-What you learned:
-- `hx-put`
-- Inline editing
-- Component replacement
-- Reusable partials
-- Dynamic form injection
-- Full reactive CRUD architecture
 

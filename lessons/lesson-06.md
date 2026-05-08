@@ -2,36 +2,22 @@
 
 Included step: 16
 
-Learning objective:
-Master one focused concept from step 16 with precise, sequential execution.
+## Concept
+Return dynamic HTML fragments instead of plain text.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 16) Return dynamic HTML fragments instead of plain text
 
-Now we move into one of the MOST important HTMX concepts: **Server-rendered HTML fragments**
-
-Right now your Flask route returns:
+Current route returns:
 - `<p>You typed: hello</p>`
 
-But real HTMX applications usually return:
+Next step is returning rendered fragments such as:
 - Cards
 - Table rows
 - Lists
 - Components
 - Partial templates
-
-This is where HTMX starts becoming a real application architecture.
-
-Goal:
-- Instead of returning plain text
-- Return dynamically generated HTML based on mock data
-- Rendered by Flask
-- You are about to build your FIRST real HTMX component
 
 ### 16.1 Add mock data
 
@@ -48,10 +34,8 @@ employees = [
 ]
 ```
 
-Why:
 - We now simulate database records, API results, and business data
-- WITHOUT using a real database yet
-- Perfect for Phase 1 learning
+- without using a real database yet
 
 ### 16.2 Create partial template
 
@@ -69,11 +53,8 @@ Add:
 </ul>
 ```
 
-Important concept:
 - This is a **partial template**
-- NOT a full HTML page
-- Designed specifically for HTMX injection
-- This becomes a core architectural pattern
+- It is not a full page, only the piece HTMX will swap.
 
 ### 16.3 Update /search route
 
@@ -95,17 +76,13 @@ def search():
     )
 ```
 
-What this does:
 - **Read user input**: `query = request.args.get("query", "").lower()`
 - **Filter employees**: If user types "a", matches Alice, Charlie, David, Emma
-- **Return partial template**: `render_template(...)` returns ONLY the HTML fragment, NOT an entire page
-- This is REAL HTMX architecture
+- **Return partial template**: `render_template(...)` returns only the fragment to swap
 
 ### 16.4 Test it
 
-Refresh your browser.
-
-Now type: **a**
+Refresh and type "a".
 
 Expected dynamic results:
 - Alice
@@ -118,29 +95,12 @@ Type: **bo**
 Expected:
 - Bob
 
-Important breakthrough:
-- You are now building server-rendered components
-- Dynamic filtering
-- Partial template rendering
-- Live reactive UI
-- Without React, Vue, Angular, or JSON APIs
-- This is the heart of HTMX
-
-VERY IMPORTANT CONCEPT:
-
-**Traditional SPA:**
-- Server returns DATA
-- Frontend renders UI
-
-**HTMX:**
-- Server returns READY HTML
-- The server owns rendering
-- Massive architectural simplification
+**Note:**
+- SPA pattern: server returns data and client renders UI.
+- HTMX pattern: server returns ready HTML fragments.
 
 Observe the Network tab again:
 - You should now see requests sent while typing
 - HTML fragments returned
 - DOM updated dynamically
-- Professional reactive behavior
-- Minimal complexity
 

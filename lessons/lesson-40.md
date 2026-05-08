@@ -2,14 +2,10 @@
 
 Included step: 50
 
-Learning objective:
-Master one focused concept from step 50 with precise, sequential execution.
+## Concept
+Production WSGI Server (Gunicorn).
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 50) Production WSGI Server (Gunicorn)
 
@@ -82,15 +78,6 @@ CMD ["gunicorn", "-c", "gunicorn.conf.py", "app:app"]
 | Restart on code change | Yes (`debug=True`)  | No (use `--reload`)   |
 | HTTPS              | No                      | Via reverse proxy     |
 | Production safe    | No                      | Yes                   |
-
----
-
-### What you will learn
-- WSGI protocol and why Flask dev server is not production-ready
-- Gunicorn worker model (pre-fork)
-- Worker count tuning
-- `gunicorn.conf.py` for clean configuration
-- Logging to stdout/stderr for container log aggregation
 
 ---
 

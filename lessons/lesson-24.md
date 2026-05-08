@@ -2,14 +2,10 @@
 
 Included step: 34
 
-Learning objective:
-Master one focused concept from step 34 with precise, sequential execution.
+## Concept
+Add Sorting to the Employee Table.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 34) Add Sorting to the Employee Table
 
@@ -75,15 +71,5 @@ Each header is now a clickable HTMX link that preserves the current search query
 
 DevTools shows requests like `/employees?query=it&sort=name`.
 
-### Architectural note
-The server owns sorting state, filter state, and rendering. The frontend has no sort logic — only declarative HTMX attributes.
-
-### What you learned
-- Reactive sorting with query parameters
-- Stateful HTMX requests (preserving query across interactions)
-- Server-side ordering
-- Dynamic table controls
-- Enterprise dashboard architecture pattern
-
----
+**Note:** The server owns sorting state, filter state, and rendering. The frontend has no sort logic — only declarative HTMX attributes.
 

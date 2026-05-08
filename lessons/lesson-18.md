@@ -2,14 +2,10 @@
 
 Included step: 28
 
-Learning objective:
-Master one focused concept from step 28 with precise, sequential execution.
+## Concept
+Refactor the Flask Application Structure.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 28) Refactor the Flask Application Structure
 
@@ -57,13 +53,4 @@ htmx-flask-learning/
 │   └── style.css
 └── venv/
 ```
-
-### What you learned
-- Basic project refactoring
-- Python module imports
-- Separating data from logic
-- Improving maintainability
-- Incremental architecture evolution — learn mechanics first, then organize structure
-
----
 

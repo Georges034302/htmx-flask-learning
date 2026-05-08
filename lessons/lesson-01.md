@@ -2,14 +2,10 @@
 
 Included steps: 1-6
 
-Learning objective:
-Build a clean Python and Flask baseline so all later HTMX work runs consistently.
+## Concept
+Environment and Flask Foundations.
 
-Editor notes:
-- This lesson intentionally groups setup actions to reduce context switching.
-- Keep command order exactly as written for reproducibility.
-
-## Included steps
+## Step map
 - Step 1) Check Python version
 - Step 2) Create virtual environment
 - Step 3) Activate virtual environment
@@ -17,7 +13,7 @@ Editor notes:
 - Step 5) Install Flask
 - Step 6) Create and verify requirements file
 
-## Detailed walkthrough
+## Step flow
 
 ## 1) Check Python version
 
@@ -27,7 +23,6 @@ python --version || python3 --version
 
 Observed version:
 - Python 3.12.1
-
 
 ## 2) Create virtual environment
 
@@ -40,7 +35,6 @@ Verified with:
 ```bash
 ls -ld venv
 ```
-
 
 ## 3) Activate virtual environment
 
@@ -61,7 +55,6 @@ Expected verification:
 - Python path points to `<repo>/venv/bin/python`
 - Python version is 3.12.1
 
-
 ## 4) Add ignore rules
 
 Created `.gitignore` with:
@@ -70,7 +63,6 @@ Created `.gitignore` with:
 venv/
 .vscode/
 ```
-
 
 ## 5) Install Flask
 
@@ -102,7 +94,6 @@ Installed packages at that time:
 - MarkupSafe 3.0.3
 - pip 23.2.1
 - Werkzeug 3.1.8
-
 
 ## 6) Create and verify requirements file
 

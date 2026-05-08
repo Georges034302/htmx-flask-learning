@@ -2,18 +2,12 @@
 
 Included step: 19
 
-Learning objective:
-Master one focused concept from step 19 with precise, sequential execution.
+## Concept
+Trigger requests automatically on page load.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 19) Trigger requests automatically on page load
-
-Now you will learn another very important HTMX capability: `hx-trigger="load"`.
 
 This allows HTMX to automatically fetch content immediately after the page loads, without user interaction.
 
@@ -24,7 +18,6 @@ Common uses:
 - Activity feeds
 - Admin portals
 
-Goal:
 - When the page opens, HTMX automatically requests data
 - Flask returns HTML
 - Content appears dynamically
@@ -82,7 +75,6 @@ Add this below the search section:
 </div>
 ```
 
-Important concepts:
 - `hx-trigger="load"`: trigger request automatically when element loads
 - `hx-target="this"`: replace the element itself with returned HTML
 
@@ -102,11 +94,4 @@ No user interaction required.
 Observe Network tab:
 - Refresh with DevTools open
 - You should see automatic `/latest` request
-
-What you learned:
-- Automatic HTMX requests
-- Load triggers
-- Self-replacing components
-- Async page initialization
-- Dashboard-style rendering
 

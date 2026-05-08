@@ -2,14 +2,10 @@
 
 Included step: 29
 
-Learning objective:
-Master one focused concept from step 29 with precise, sequential execution.
+## Concept
+Introduce Flask Blueprints (Modular Route Organization).
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 29) Introduce Flask Blueprints (Modular Route Organization)
 
@@ -64,13 +60,4 @@ htmx-flask-learning/
 │   └── style.css
 └── venv/
 ```
-
-### What you learned
-- Flask Blueprints concept and purpose
-- Modular route organization
-- `register_blueprint()` wiring
-- Scalable Flask architecture
-- Separation of concerns — entry point vs route logic
-
----
 

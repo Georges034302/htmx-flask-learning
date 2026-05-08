@@ -96,5 +96,7 @@ Copyright (c) 2026 Dr. Georges Bou Ghantous. All rights reserved.
 
 License details are provided in [docs/license.md](docs/license.md).
 
+---
+
 <p><sub><em><span style="color:#808080;">🧑‍🏫 Dr. Georges Bou Ghantous</span></em></sub></p>
 

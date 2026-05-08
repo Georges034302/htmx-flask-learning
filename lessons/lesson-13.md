@@ -2,20 +2,15 @@
 
 Included step: 23
 
-Learning objective:
-Master one focused concept from step 23 with precise, sequential execution.
+## Concept
+Delete employees dynamically with hx-delete.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 23) Delete employees dynamically with hx-delete
 
 Now you add the Delete part of CRUD.
 
-Goal:
 - Add a Delete button per employee
 - Send DELETE request to Flask
 - Remove employee from backend list
@@ -48,7 +43,6 @@ Add this action cell in each employee row:
 </td>
 ```
 
-Important attributes:
 - `hx-delete`: sends HTTP DELETE request
 - `hx-confirm`: shows confirmation dialog before request
 
@@ -97,12 +91,4 @@ Observe in DevTools network:
 - DELETE request
 - Trigger event
 - GET `/employees` to refresh table
-
-What you learned:
-- `hx-delete`
-- DELETE requests
-- Confirmation dialogs
-- Reactive CRUD updates
-- Event reuse
-- Dynamic component synchronization
 

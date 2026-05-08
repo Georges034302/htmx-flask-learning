@@ -2,14 +2,10 @@
 
 Included step: 18
 
-Learning objective:
-Master one focused concept from step 18 with precise, sequential execution.
+## Concept
+Replace vs append content with hx-swap.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 18) Replace vs append content with hx-swap
 
@@ -25,7 +21,6 @@ Default HTMX behavior (for reference):
 - If `hx-swap` is omitted, HTMX uses `innerHTML`
 - Existing content inside target gets replaced
 
-Goal:
 - Experiment with replacing content
 - Experiment with appending content
 - Understand DOM injection behavior
@@ -76,7 +71,6 @@ To:
 hx-swap="beforeend"
 ```
 
-What this means:
 - Instead of replacing, HTMX appends returned HTML
 - Conceptually similar to: `element.innerHTML += newContent`
 
@@ -94,7 +88,6 @@ Refresh page, then type:
 Observe:
 - Results keep appending
 
-Important observation:
 - You are now controlling DOM insertion strategy
 - Content placement behavior
 - UI rendering mechanics

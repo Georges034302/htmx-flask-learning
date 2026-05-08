@@ -2,14 +2,10 @@
 
 Included step: 48
 
-Learning objective:
-Master one focused concept from step 48 with precise, sequential execution.
+## Concept
+Deploy to Azure.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 48) Deploy to Azure
 
@@ -111,16 +107,6 @@ az containerapp show \
 ```
 
 Returns the public HTTPS URL for your deployed app.
-
----
-
-### What you will learn
-- Azure Container Registry (ACR) for private image hosting
-- Azure Container Apps for serverless container hosting
-- `az containerapp` CLI commands
-- Image tagging and pushing workflow
-- External ingress and HTTPS termination on Azure
-- Min/max replica scaling configuration
 
 ---
 

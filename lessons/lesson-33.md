@@ -2,14 +2,10 @@
 
 Included step: 43
 
-Learning objective:
-Master one focused concept from step 43 with precise, sequential execution.
+## Concept
+Real Database Integration (SQLite + SQLAlchemy).
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 43) Real Database Integration (SQLite + SQLAlchemy)
 
@@ -208,17 +204,6 @@ htmx-flask-learning/
 └── instance/
     └── employees.db      ← auto-created by SQLite
 ```
-
----
-
-### What you will learn
-- Flask-SQLAlchemy setup and configuration
-- ORM model definition and relationships
-- Database-backed CRUD operations
-- SQLAlchemy queries (filter, order_by, paginate, ilike)
-- Session commit/rollback pattern
-- Seeding initial data with a reusable SQL script
-- Migrating from in-memory mock data to persistent storage
 
 ---
 

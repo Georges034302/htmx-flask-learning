@@ -2,14 +2,10 @@
 
 Included step: 31
 
-Learning objective:
-Master one focused concept from step 31 with precise, sequential execution.
+## Concept
+Add Empty-State Handling ("No Results Found").
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 31) Add Empty-State Handling ("No Results Found")
 
@@ -43,15 +39,5 @@ Replaced the bare `{% for %}` loop with a Jinja conditional:
 | `zzzz` | No employees found.         |
 | `IT`   | Alice, David                |
 
-### Architectural note
-The server decides which UI state to render — results list or empty-state message. No frontend JavaScript required. This is the core HTMX philosophy: centralized, server-driven rendering.
-
-### What you learned
-- Jinja conditional rendering (`{% if %} / {% else %} / {% endif %}`)
-- Empty-state UX pattern
-- Server-driven UI states
-- Professional application feedback (loading states, empty states, error states)
-- HTMX architecture: server owns all rendering decisions
-
----
+**Note:** The server decides which UI state to render — results list or empty-state message. No frontend JavaScript required. Server-driven rendering keeps UI logic on the backend.
 

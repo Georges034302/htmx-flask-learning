@@ -2,30 +2,18 @@
 
 Included step: 17
 
-Learning objective:
-Master one focused concept from step 17 with precise, sequential execution.
+## Concept
+Add loading indicators with hx-indicator.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 17) Add loading indicators with hx-indicator
 
-Now we will make the UI visually react while waiting for the server.
+Make the UI visually react while waiting for the server.
 
-This introduces: **hx-indicator**
-
-Extremely important for:
-- Professional UX
-- Async feedback
-- Real-world applications
-
-Goal:
 - When HTMX sends a request: a loading message appears
 - When response returns: loading message disappears automatically
-- WITHOUT JavaScript
+- without JavaScript
 
 ### 17.1 Add a loading element
 
@@ -60,9 +48,7 @@ What `hx-indicator` does:
 
 Your Flask response is currently very fast.
 
-The loading message may appear too quickly to notice.
-
-So we will simulate server delay.
+To make it visible, add a short server delay.
 
 ### 17.4 Add artificial delay
 
@@ -100,12 +86,11 @@ def search():
     )
 ```
 
-What this simulates:
+**Note:** This simulates:
 - Database latency
 - API delay
 - Network wait
 - Backend processing
-- Very realistic
 
 ### 17.6 Test it
 
@@ -119,20 +104,10 @@ Expected behavior:
 - Results appear
 - Loading disappears automatically
 
-Important observation:
+**Note:**
 - You just implemented async UX feedback, loading states, and reactive request indicators
-- WITHOUT JavaScript state management, async handlers, or frontend libraries
-
-Important HTMX philosophy:
+- without extra frontend state code
 - Behavior is described declaratively: `hx-indicator="#loading"`
 - Instead of imperative JS logic
 - This keeps frontend simpler, UI cleaner, maintenance easier
-
-What you learned:
-- Request lifecycle visualization
-- Async UI feedback
-- Loading indicators
-- HTMX request states
-
-This is real production-style behavior.
 

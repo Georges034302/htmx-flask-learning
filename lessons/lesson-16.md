@@ -2,20 +2,15 @@
 
 Included step: 26
 
-Learning objective:
-Master one focused concept from step 26 with precise, sequential execution.
+## Concept
+Add a Cancel button to inline editing.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 26) Add a Cancel button to inline editing
 
 Now inline edit mode can be rolled back cleanly.
 
-Goal:
 - Click Cancel in edit mode
 - Restore normal row view
 - No page refresh
@@ -36,10 +31,7 @@ In `templates/partials/edit_employee_row.html`, add below Save:
 </button>
 ```
 
-Important concept:
 - `type="button"` prevents unintended submit behavior.
-
-What this does:
 - Sends GET request for display row
 - Replaces editable row with normal row component
 
@@ -79,13 +71,4 @@ Then:
 - Original row returns
 
 No page refresh required.
-
-What you learned:
-- Reversible component rendering
-- UI rollback pattern
-- Inline state switching
-- Component restoration
-- Efficient row-level rendering
-
----
 

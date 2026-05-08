@@ -2,14 +2,10 @@
 
 Included step: 47
 
-Learning objective:
-Master one focused concept from step 47 with precise, sequential execution.
+## Concept
+Dockerize the App.
 
-Editor notes:
-- Keep the exact sequence from source material.
-- Validate behavior at each test checkpoint before continuing.
-
-## Detailed walkthrough
+## Step flow
 
 ## 47) Dockerize the App
 
@@ -141,16 +137,6 @@ htmx-flask-learning/
 ├── uploads/
 └── venv/               ← excluded by .dockerignore
 ```
-
----
-
-### What you will learn
-- Docker image build with `FROM`, `COPY`, `RUN`, `CMD`
-- Layer caching with dependency-first copy
-- `.dockerignore` to exclude unnecessary files
-- `docker-compose` for multi-container or local dev convenience
-- Difference between Flask dev server and gunicorn in production
-- Volume mounting for persistent file storage
 
 ---
 
