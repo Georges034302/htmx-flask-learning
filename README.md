@@ -98,5 +98,4 @@ License details are provided in [docs/license.md](docs/license.md).
 
 ---
 
-<p><sub><em><span style="color:#808080;">🧑‍🏫 Dr. Georges Bou Ghantous</span></em></sub></p>
-
+<sub><i><span style="color:#B0B0B0">👤 Author: Dr. Georges Bou Ghantous</span></i></sub>
