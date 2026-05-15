@@ -57,19 +57,27 @@ return render_template(
 Navigation buttons appear below the table and preserve current query and sort:
 
 ```html
-<div style="margin-top:20px;">
+<div class="pagination">
 
-{% if page > 1 %}
-<button hx-get="/employees?query={{ query }}&sort={{ sort }}&page={{ page - 1 }}"
-        hx-target="#employee-table-container">Previous</button>
-{% endif %}
+    {% if page > 1 %}
+    <button
+        class="btn btn-ghost btn-sm"
+        hx-get="/employees?query={{ query }}&sort={{ sort }}&page={{ page - 1 }}"
+        hx-target="#employee-table-container">
+        &laquo; Previous
+    </button>
+    {% endif %}
 
-<span>Page {{ page }} of {{ total_pages }}</span>
+    <span class="page-info">Page {{ page }} of {{ total_pages }}</span>
 
-{% if page < total_pages %}
-<button hx-get="/employees?query={{ query }}&sort={{ sort }}&page={{ page + 1 }}"
-        hx-target="#employee-table-container">Next</button>
-{% endif %}
+    {% if page < total_pages %}
+    <button
+        class="btn btn-ghost btn-sm"
+        hx-get="/employees?query={{ query }}&sort={{ sort }}&page={{ page + 1 }}"
+        hx-target="#employee-table-container">
+        Next &raquo;
+    </button>
+    {% endif %}
 
 </div>
 ```

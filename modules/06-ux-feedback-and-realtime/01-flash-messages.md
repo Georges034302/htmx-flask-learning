@@ -34,10 +34,10 @@ def messages():
 ### 1.4 Created messages partial (templates/partials/messages.html)
 
 ```html
-{% with messages = get_flashed_messages() %}
+{% with messages = get_flashed_messages(with_categories=True) %}
     {% if messages %}
-        {% for message in messages %}
-            <div class="message">{{ message }}</div>
+        {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
         {% endfor %}
     {% endif %}
 {% endwith %}
@@ -74,22 +74,21 @@ return response, 200, {
 
 One POST now triggers both a table refresh and a notification refresh.
 
-### 1.7 Added CSS (static/style.css)
+### 1.7 CSS — static/css/main.css
 
-```css
-.message {
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-}
+`main.css` already provides all flash message styles. No custom CSS needed.
 
-.message.success {
-    background-color: #d4edda;
-    color: #155724;
-}
-```
+The relevant classes are:
 
-- Category-specific styles (`.message.warning`, `.message.error`) are added in Module 06, Lesson 02.
+| Class | Colour | Use |
+|---|---|---|
+| `.flash` | neutral | base style applied to every message |
+| `.flash-success` | green | employee added, record saved |
+| `.flash-error` | red | validation failure, not found |
+| `.flash-warning` | amber | duplicate, constraint warning |
+| `.flash-info` | blue | informational notices |
+
+The template uses `flash-{{ category }}` so Flask category strings (`success`, `error`, `warning`, `info`) map directly to the CSS class.
 
 ### 1.8 Test
 

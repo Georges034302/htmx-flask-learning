@@ -16,10 +16,10 @@ Change `get_flashed_messages()` to `get_flashed_messages(with_categories=true)`.
 The return value changes from a list of strings to a list of `(category, message)` tuples.
 
 ```html
-{% with messages = get_flashed_messages(with_categories=true) %}
+{% with messages = get_flashed_messages(with_categories=True) %}
     {% if messages %}
         {% for category, message in messages %}
-            <div class="message {{ category }} auto-dismiss">
+            <div class="flash flash-{{ category }} auto-dismiss">
                 {{ message }}
             </div>
         {% endfor %}
@@ -27,7 +27,7 @@ The return value changes from a list of strings to a list of `(category, message
 {% endwith %}
 ```
 
-`{{ category }}` is rendered as a CSS class, so `flash("...", "success")` produces `class="message success auto-dismiss"`.
+`{{ category }}` is appended as a modifier class, so `flash("...", "success")` produces `class="flash flash-success auto-dismiss"`. All colour styles come from `static/css/main.css` — no custom CSS required.
 
 ---
 
@@ -51,32 +51,18 @@ Flask's built-in default category is `"message"` — using named categories lets
 
 ---
 
-### 1.3 Update CSS (static/style.css)
+### 1.3 CSS — static/css/main.css
 
-Replace the single hardcoded green `.message` rule with a neutral base and three category variants:
+`main.css` already defines all three category variants. No custom CSS is needed.
 
-```css
-.message {
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-}
+| Flask category | CSS class applied | Result |
+|---|---|---|
+| `"success"` | `.flash-success` | Green background, dark green text |
+| `"warning"` | `.flash-warning` | Amber background, dark amber text |
+| `"error"` | `.flash-error` | Red background, dark red text |
+| `"info"` | `.flash-info` | Blue background, dark blue text |
 
-.message.success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.message.warning {
-    background-color: #fff3cd;
-    color: #856404;
-}
-
-.message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-```
+Each variant uses CSS custom properties (`--success-bg`, `--error-bg`, etc.) so dark-theme support is automatic via `[data-theme="dark"]` in `main.css`.
 
 ---
 

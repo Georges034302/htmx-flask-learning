@@ -33,16 +33,16 @@ In production this would be a DB table with hashed passwords (e.g. `werkzeug.sec
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
-<div class="login-card">
+<div class="panel" style="max-width:380px; margin:80px auto;">
     <h2>Login</h2>
 
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-                <div class="message error">{{ message }}</div>
+                <div class="flash flash-error">{{ message }}</div>
             {% endfor %}
         {% endif %}
     {% endwith %}
@@ -146,33 +146,16 @@ Add to the top of the page alongside the heading:
 
 ---
 
-### 1.7 Add login card styles (static/style.css)
+### 1.7 CSS — static/css/main.css
 
-```css
-.login-card {
-    max-width: 360px;
-    margin: 80px auto;
-    padding: 32px;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    background: #fff;
-}
+The login page uses `.panel` for the card container and `.flash.flash-error` for authentication error messages — both already defined in `main.css`. No custom CSS is needed.
 
-.login-card h2 {
-    margin-bottom: 20px;
-}
-
-.login-card input {
-    display: block;
-    width: 100%;
-    margin-bottom: 12px;
-}
-
-.message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
+```html
+<!-- Login card wrapper using existing panel class -->
+<div class="panel" style="max-width:380px; margin:80px auto;">
 ```
+
+Buttons on the login form use `.btn .btn-primary` from `main.css`.
 
 ---
 

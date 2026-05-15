@@ -57,29 +57,31 @@ Add below employee table section:
 ```html
 <hr>
 
-<h2>Add Employee</h2>
+<div class="add-panel">
+    <h3>Add Employee</h3>
 
-<form
-    hx-post="/add-employee"
-    hx-target="#form-result">
+    <form
+        hx-post="/add-employee"
+        hx-target="#form-result">
 
-    <input
-        type="text"
-        name="name"
-        placeholder="Employee Name"
-        required>
+        <input
+            type="text"
+            name="name"
+            placeholder="Employee Name"
+            required>
 
-    <input
-        type="text"
-        name="department"
-        placeholder="Department"
-        required>
+        <input
+            type="text"
+            name="department"
+            placeholder="Department"
+            required>
 
-    <button type="submit">
-        Add Employee
-    </button>
+        <button type="submit" class="btn btn-primary">
+            Add Employee
+        </button>
 
-</form>
+    </form>
+</div>
 
 <div id="form-result"></div>
 ```

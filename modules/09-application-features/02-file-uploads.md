@@ -109,18 +109,15 @@ def upload_file():
 
 ---
 
-### 1.6 Add upload CSS (static/style.css)
+### 1.6 CSS — static/css/main.css
 
-```css
-.upload-result {
-    padding: 10px 14px;
-    margin-top: 10px;
-    border-radius: 5px;
-}
+Upload result feedback uses `.flash.flash-success` / `.flash.flash-error` from `main.css`:
 
-.upload-result.success { background-color: #d4edda; color: #155724; }
-.upload-result.error   { background-color: #f8d7da; color: #721c24; }
+```html
+<div class="flash flash-{{ status }}">{{ message }}</div>
 ```
+
+No custom CSS is needed.
 
 ---
 

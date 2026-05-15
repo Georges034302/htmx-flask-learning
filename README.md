@@ -13,6 +13,7 @@ A structured curriculum for building server-rendered web applications with Flask
 - Out-of-band swaps and clean route architecture
 - SQLAlchemy, form validation, and MySQL integration
 - Session-based authentication and file uploads
+- DRA-based design system (`static/css/main.css`) — dark sidebar layout, data table, modals, flash messages
 - Docker and Gunicorn (production WSGI)
 - Azure Key Vault secrets management and OIDC authentication
 - Azure Container Apps deployment with Managed Identity
@@ -36,9 +37,12 @@ Fragment ──replaces target element──► Browser DOM
 htmx-flask-learning/
 ├── LICENSE.md
 ├── README.md
-├── data/        ...
-├── docs/        ...
-└── modules/     ...
+├── data/                 # mock dataset and DB seed script
+├── docs/                 # course documentation
+├── static/
+│   └── css/
+│       └── main.css      # DRA-based design system (single stylesheet)
+└── modules/              # 10 lesson modules
 ```
 
 Full structure: [docs/architecture-and-patterns.md](docs/architecture-and-patterns.md)
@@ -51,6 +55,7 @@ Full structure: [docs/architecture-and-patterns.md](docs/architecture-and-patter
 
 | File | Purpose |
 |------|---------|
+| [static/css/main.css](static/css/main.css) | Dashboard design system — tokens, layout, table, buttons, flash, modal |
 | [docs/production.md](docs/production.md) | Azure production deployment reference and architecture |
 | [docs/course-overview.md](docs/course-overview.md) | Scope, outcomes, entry points |
 | [docs/learning-path.md](docs/learning-path.md) | Phase breakdown and sequencing |

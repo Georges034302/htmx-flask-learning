@@ -28,12 +28,53 @@ def close_modal():
 
 ### 1.2 Added modal partial (templates/partials/employee_details_modal.html)
 
-Created a modal overlay/card partial that shows:
-- ID
-- Name
-- Department
+Created using `.lightbox`, `.lightbox-card`, `.lightbox-head`, `.lightbox-body`, and `.lightbox-actions` from `main.css`:
 
-Includes a **Close** button that targets `#modal` and swaps empty HTML via `/close-modal`.
+```html
+<div class="lightbox open">
+    <div class="lightbox-card">
+
+        <div class="lightbox-head">
+            <h3>Employee Details</h3>
+            <button
+                class="lightbox-close"
+                hx-get="/close-modal"
+                hx-target="#modal"
+                hx-swap="innerHTML">
+                &times;
+            </button>
+        </div>
+
+        <div class="lightbox-body">
+            <dl>
+                <dt>ID</dt>
+                <dd>{{ employee.id }}</dd>
+                <dt>Name</dt>
+                <dd>{{ employee.name }}</dd>
+                <dt>Department</dt>
+                <dd><span class="pill">{{ employee.department }}</span></dd>
+            </dl>
+        </div>
+
+        <div class="lightbox-actions">
+            <button
+                class="btn btn-ghost"
+                hx-get="/close-modal"
+                hx-target="#modal"
+                hx-swap="innerHTML">
+                Close
+            </button>
+        </div>
+
+    </div>
+</div>
+```
+
+- `.lightbox.open` makes the overlay visible (`opacity: 1; pointer-events: auto`).
+- `.lightbox-card` is the centered content card with `border-radius` and `box-shadow`.
+- `.lightbox-close` is the × button in the top-right corner.
+- The `dl`/`dt`/`dd` grid in `.lightbox-body` gives a clean two-column label/value layout.
+- Styles come entirely from `static/css/main.css` — no custom CSS is needed.
 
 ### 1.3 Added View action in table rows (templates/partials/employee_row.html)
 
@@ -41,6 +82,7 @@ Added button:
 
 ```html
 <button
+    class="btn btn-ghost btn-sm"
     hx-get="/employee-details/{{ employee.id }}"
     hx-target="#modal"
     hx-swap="innerHTML">
@@ -60,14 +102,23 @@ Added container:
 
 All modal content is dynamically injected into this region.
 
-### 1.5 Added modal styles (static/style.css)
+### 1.5 CSS — static/css/main.css
 
-Added:
-- `.modal-overlay`
-- `.modal-card`
-- `.modal-actions`
+`main.css` provides the complete modal system. No custom CSS is needed.
 
-for centered overlay rendering and clean modal presentation.
+Classes used:
+
+| Class | Purpose |
+|---|---|
+| `.lightbox` | Fixed overlay with blur backdrop (`opacity: 0` by default) |
+| `.lightbox.open` | Makes the overlay visible and interactive |
+| `.lightbox-card` | Centered white card with rounded corners and shadow |
+| `.lightbox-head` | Title row with close button |
+| `.lightbox-body` | Content area with `dl`/`dt`/`dd` grid |
+| `.lightbox-close` | \u00d7 button (top right) |
+| `.lightbox-actions` | Footer row for action buttons |
+
+The `/close-modal` route returns an empty string, clearing `#modal` and collapsing the overlay.
 
 ### 1.6 Test
 

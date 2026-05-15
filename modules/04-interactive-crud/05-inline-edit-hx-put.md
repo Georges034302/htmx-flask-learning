@@ -19,12 +19,11 @@ In `templates/partials/employees_table.html` rows, add Edit above Delete:
 
 ```html
 <button
+    class="btn btn-ghost btn-sm"
     hx-get="/edit-employee/{{ employee.id }}"
     hx-target="closest tr"
     hx-swap="outerHTML">
-
     Edit
-
 </button>
 ```
 
@@ -48,6 +47,7 @@ Create `templates/partials/edit_employee_row.html`:
 
     <td>
         <input
+            class="inline-edit-input"
             type="text"
             name="name"
             value="{{ employee.name }}">
@@ -55,13 +55,14 @@ Create `templates/partials/edit_employee_row.html`:
 
     <td>
         <input
+            class="inline-edit-input"
             type="text"
             name="department"
             value="{{ employee.department }}">
     </td>
 
-    <td>
-        <button type="submit">
+    <td class="actions">
+        <button type="submit" class="btn btn-primary btn-sm">
             Save
         </button>
     </td>
@@ -85,23 +86,21 @@ Create `templates/partials/employee_row.html`:
     <td>
 
         <button
+            class="btn btn-ghost btn-sm"
             hx-get="/edit-employee/{{ employee.id }}"
             hx-target="closest tr"
             hx-swap="outerHTML">
-
             Edit
-
         </button>
 
         <button
+            class="btn btn-danger btn-sm"
             hx-delete="/delete-employee/{{ employee.id }}"
             hx-confirm="Are you sure?"
             hx-trigger="click"
             hx-target="closest tr"
             hx-swap="outerHTML">
-
             Delete
-
         </button>
 
     </td>

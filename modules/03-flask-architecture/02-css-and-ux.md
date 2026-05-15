@@ -9,44 +9,86 @@ Add CSS Styling and Improve UX Structure.
 ### Goal
 Add a stylesheet to improve readability, layout, and visual structure without changing architecture.
 
-### 1.1 Create CSS File
+### 1.1 Create the CSS folder and file
 
-Created: `static/style.css`
+The project uses a pre-built design system at `static/css/main.css`.
+If you followed Lesson 01-02, the folder was already created with `mkdir -p static/css`.
 
-Flask automatically serves files in `/static/` via `url_for('static', ...)`.
+Otherwise create it now:
 
-### 1.2 Link CSS in index.html
-
-Inside `<head>`, below the HTMX script:
-
-```html
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+```bash
+mkdir -p static/css
+touch static/css/main.css
 ```
 
-`url_for('static', filename='style.css')` is an important Flask convention for referencing static assets.
+Flask serves every file inside `/static/` automatically via `url_for('static', ...)`.
 
-### 1.3 CSS added (static/style.css)
+### 1.2 Link main.css in index.html
 
-Styles body, headings, inputs, buttons, table (zebra striping, header), and `#loading` indicator.
+Inside `<head>`, below the HTMX script tag:
 
-### 27.3.1 Current layout alignment (latest UI polish)
+```html
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+```
 
-The current app keeps this base CSS and adds layout classes for a cleaner dashboard structure:
+`url_for('static', filename='css/main.css')` is the correct Flask convention for resolving static paths regardless of deployment prefix.
 
-- `.controls-grid`: places Add Employee (left) and Search (right) in one row.
-- `.panel`: shared card styling for both sections.
-- `.add-panel input` and `.search-panel input`: same control sizing for consistent input box height.
-- `.table-header` and `#messages`: flash messages render beside the Employee Table title.
-- Responsive rule at `max-width: 900px`: stacks panels vertically on smaller screens.
+### 1.3 Design system — static/css/main.css
 
-This keeps the lesson intent intact while matching the current stylesheet in the repository.
+`main.css` is the single source of truth for all styles in this project.
+It provides a complete set of ready-to-use CSS classes:
 
-### 1.4 What you learned
-- Flask static files convention
-- CSS integration with HTMX
-- UI enhancement without frontend frameworks
+| Class | Purpose |
+|---|---|
+| `.app` | Two-column grid: dark sidebar + light main area |
+| `.sidebar` / `.side-nav` | Dark navigation sidebar |
+| `.main` / `.page-header` | Content area and page title block |
+| `.data-table` | Styled employee table (bordered, striped, hoverable) |
+| `.btn` / `.btn-primary` / `.btn-ghost` / `.btn-danger` | Button variants |
+| `.add-panel` | Card wrapper for Add Employee form |
+| `.search-bar` | Search input container |
+| `.controls-bar` | Toolbar row above the table |
+| `.flash` / `.flash-success` / `.flash-error` / `.flash-warning` | Flash message styles |
+| `.panel` / `.panel-title` | Generic card panel |
+| `.pill` | Department badge / tag |
+| `.pagination` | Page navigation controls |
+| `.lightbox` / `.lightbox-card` | Modal overlay |
+| `.htmx-indicator` / `.spinner` | HTMX request loading state |
+| `.card-grid` / `.card` | Stat summary cards |
+| `.empty-state` | Empty table placeholder |
+
+No custom CSS is needed in `index.html` or any partial — add classes from this list directly to your HTML elements.
+
+### 1.4 Current layout structure
+
+```html
+<div class="app">
+
+    <nav class="sidebar">
+        <div class="brand">...</div>
+        <nav class="side-nav">...</nav>
+    </nav>
+
+    <div class="main">
+        <div class="page-header">...</div>
+        <div class="controls-bar">...</div>
+        <div id="employees-container">...</div>
+    </div>
+
+</div>
+```
+
+- `.controls-bar`: places Add Employee form and Search in one row.
+- `.data-table`: replaces `border="1" cellpadding="10"` on every `<table>`.
+- Flash messages use `.flash .flash-success` / `.flash-error` / `.flash-warning`.
+- Responsive breakpoint at `max-width: 800px` collapses sidebar to a top bar.
+
+### 1.5 What you learned
+- Flask static files convention — `url_for('static', filename=...)`
+- Design system approach: one CSS file, consistent classes throughout
+- CSS integration with HTMX — no extra JavaScript needed
 - Separation of structure and styling
-- HTMX works perfectly with simple HTML + lightweight CSS
+- HTMX works perfectly with plain HTML + a lightweight stylesheet
 
 ---
 

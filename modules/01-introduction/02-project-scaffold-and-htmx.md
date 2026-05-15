@@ -10,7 +10,7 @@ Create core folders for Flask + HTMX:
 ```bash
 mkdir templates
 mkdir templates/partials
-mkdir static
+mkdir -p static/css
 ```
 
 Verify structure:
@@ -29,6 +29,7 @@ Expected key entries:
 - `templates/`
 - `templates/partials/`
 - `static/`
+- `static/css/`
 - `venv/`
 - `requirements.txt`
 
@@ -36,6 +37,7 @@ Why these folders exist:
 - `templates/`: Flask HTML pages, Jinja templates, and HTMX partial fragments.
 - `templates/partials/`: Reusable HTML fragments for HTMX updates (table rows, cards, modal content, partial updates).
 - `static/`: CSS, images, and optional JavaScript.
+- `static/css/`: Stylesheets — `main.css` lives here.
 
 - Traditional SPA: frontend components render UI.
 - HTMX architecture: server renders HTML fragments.
@@ -98,6 +100,9 @@ Add this code to `templates/index.html`:
 
 	<!-- HTMX CDN -->
 	<script src="https://unpkg.com/htmx.org@1.9.12"></script>
+
+	<!-- Dashboard stylesheet -->
+	<link rel="stylesheet" href="/static/css/main.css">
 </head>
 
 <body>
@@ -105,8 +110,9 @@ Add this code to `templates/index.html`:
 	<h1>HTMX + Flask</h1>
 
 	<button
-		hx-get="/hello"     <!-- On click, HTMX sends GET /hello to Flask (@app.route("/hello")) -->
-		hx-target="#result"> <!-- HTMX finds <div id="result"> and injects the returned HTML there -->
+		class="btn btn-primary"
+		hx-get="/hello"
+		hx-target="#result">
 		Click Me
 	</button>
 

@@ -54,7 +54,7 @@ htmx-flask-learning/
 │   ├── index.html
 │   └── partials/
 ├── static/
-│   └── style.css
+│   └── main.css
 └── venv/
 ```
 

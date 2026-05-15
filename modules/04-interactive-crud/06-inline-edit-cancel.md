@@ -19,12 +19,11 @@ In `templates/partials/edit_employee_row.html`, add below Save:
 ```html
 <button
     type="button"
+    class="btn btn-ghost btn-sm"
     hx-get="/employee-row/{{ employee.id }}"
     hx-target="closest tr"
     hx-swap="outerHTML">
-
     Cancel
-
 </button>
 ```
 

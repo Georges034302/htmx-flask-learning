@@ -26,15 +26,14 @@ Add Actions header:
 Add this action cell in each employee row:
 
 ```html
-<td>
+<td class="actions">
 
     <button
+        class="btn btn-danger btn-sm"
         hx-delete="/delete-employee/{{ employee.id }}"
         hx-confirm="Are you sure?"
         hx-trigger="click">
-
         Delete
-
     </button>
 
 </td>

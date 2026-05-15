@@ -24,6 +24,9 @@ htmx-flask-learning/
 │   ├── setup-and-runbook.md
 │   ├── database-notes.md
 │   └── changinglog.md
+├── static/
+│   └── css/
+│       └── main.css             
 └── modules/
     ├── 01-introduction/
     ├── 02-htmx-core-attributes/
@@ -54,6 +57,22 @@ A single Flask response updates multiple independent DOM regions using `hx-swap-
 ### 5. Layered Validation
 Field-level checks → business rule checks → persistence. No write to the database until all validation passes.
 
+### 6. Single-File Design System
+All styles live in `static/css/main.css` — no inline `<style>` blocks, no external CDN. The file is a purpose-built design system adapted from the DRA Framework for this dashboard project.
+
+Key CSS layers:
+
+| Layer | Classes | Introduced |
+|---|---|---|
+| Layout | `.app`, `.sidebar`, `.main`, `.page-header`, `.controls-bar` | Module 03, Lesson 05 |
+| Data table | `.data-table`, `.inline-edit-input` | Module 03, Lesson 01 |
+| Buttons | `.btn`, `.btn-primary`, `.btn-ghost`, `.btn-danger`, `.btn-sm` | Module 01, Lesson 02 |
+| Flash messages | `.flash`, `.flash-success`, `.flash-error`, `.flash-warning`, `.flash-info` | Module 06, Lesson 01 |
+| Modal | `.lightbox`, `.lightbox-card`, `.lightbox-head`, `.lightbox-body`, `.lightbox-actions` | Module 06, Lesson 07 |
+| Badges | `.pill` | Module 03, Lesson 05 |
+| HTMX state | `.htmx-indicator`, `.spinner` | Module 02, Lesson 05 |
+| Responsive | sidebar collapses to top bar at `800px` | global |
+
 ## Data Evolution Path
 
 | Stage | Storage |
@@ -80,3 +99,4 @@ Field-level checks → business rule checks → persistence. No write to the dat
 | SQLAlchemy integration | [08-data-persistence/01-sqlalchemy-integration.md](../modules/08-data-persistence/01-sqlalchemy-integration.md) |
 | Azure production deployment | [docs/production.md](production.md) |
 | Production config | [10-production-and-deployment](../modules/10-production-and-deployment/) |
+| Design system | [static/css/main.css](../static/css/main.css) |

@@ -196,7 +196,7 @@ htmx-flask-learning/
 │   ├── index.html
 │   └── partials/
 ├── static/
-│   └── style.css
+│   └── main.css
 └── instance/
     └── employees.db      ← auto-created by SQLite
 ```

@@ -86,22 +86,21 @@ If validation fails:
 
 ---
 
-### 1.4 Add error styles (static/style.css)
+### 1.4 CSS — static/css/main.css
 
-```css
-.form-errors {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-}
+Error display uses the `.flash.flash-error` classes already in `main.css`. The `form_errors.html` partial should use:
 
-.form-errors ul {
-    margin: 0;
-    padding-left: 18px;
-}
+```html
+<div class="flash flash-error">
+    <ul style="margin:0; padding-left:18px;">
+        {% for error in errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+</div>
 ```
+
+No custom CSS is needed.
 
 ---
 

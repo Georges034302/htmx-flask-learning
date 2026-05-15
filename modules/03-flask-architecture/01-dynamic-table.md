@@ -42,7 +42,7 @@ def get_employees():
 Create file: `templates/partials/employees_table.html`
 
 ```html
-<table border="1" cellpadding="10">
+<table class="data-table">
 
     <thead>
         <tr>
@@ -79,6 +79,7 @@ Add below latest updates section:
 <h2>Employee Table</h2>
 
 <button
+    class="btn btn-ghost"
     hx-get="/employees"
     hx-target="#employee-table">
     Load Employees

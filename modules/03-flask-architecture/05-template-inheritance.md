@@ -22,7 +22,7 @@ Currently, every full-page template in `templates/` repeats this structure:
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTMX Learning</title>
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
     <!-- page-specific content -->
@@ -56,8 +56,8 @@ Create file: `templates/base.html`
     <!-- HTMX CDN — loaded once, inherited by all child templates -->
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
 
-    <!-- Global stylesheet -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Dashboard design system -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
     <!-- Child templates can inject extra <head> content here -->
     {% block extra_head %}{% endblock %}
@@ -65,26 +65,53 @@ Create file: `templates/base.html`
 
 <body>
 
-    <!-- Optional site-wide header -->
-    <header>
-        <h1>Employee Dashboard</h1>
-    </header>
+<div class="app">
 
-    <!-- Flash messages rendered globally -->
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-            <div id="flash-container">
-                {% for category, message in messages %}
-                    <div class="flash {{ category }}">{{ message }}</div>
-                {% endfor %}
+    <!-- Sidebar navigation -->
+    <nav class="sidebar">
+        <div class="brand">
+            <span>
+                <div class="brand-name">Employee Hub</div>
+                <div class="brand-tag">HTMX + Flask</div>
+            </span>
+        </div>
+
+        <div class="side-section-title">Navigation</div>
+
+        <nav class="side-nav">
+            <a href="/" class="{{ 'active' if request.path == '/' else '' }}">
+                Dashboard
+            </a>
+        </nav>
+
+        <div class="side-author">
+            <div>
+                <div class="name">Admin</div>
+                <div class="role">Employee Dashboard</div>
             </div>
-        {% endif %}
-    {% endwith %}
+        </div>
+    </nav>
 
-    <!-- Each child template fills this block with its own content -->
-    <main>
+    <!-- Main content area -->
+    <div class="main">
+
+        <!-- Flash messages rendered globally -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div id="flash-container">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Each child template fills this block -->
         {% block content %}{% endblock %}
-    </main>
+
+    </div><!-- /.main -->
+
+</div><!-- /.app -->
 
     <!-- Child templates can inject page-specific scripts here -->
     {% block extra_scripts %}{% endblock %}
@@ -98,6 +125,8 @@ Key Jinja2 constructs:
 - `{% block content %}{% endblock %}` — defines an empty slot that child templates must fill.
 - `{{ url_for(...) }}` — resolves static file paths safely regardless of deployment prefix.
 - `{% with %}` — creates a local variable scope; used here for flash messages.
+- `.app` grid gives the dark sidebar + light content layout from `main.css`.
+- `.flash-{{ category }}` maps Flask's flash categories (`success`, `error`, `warning`) to CSS colour classes.
 
 ---
 
@@ -112,23 +141,32 @@ Replace the full contents of `templates/index.html` with:
 
 {% block content %}
 
-<div id="search-container">
+<div class="page-header">
+    <div>
+        <h1>Employees</h1>
+        <p>Search, add, and manage employee records.</p>
+    </div>
+</div>
 
-    <input
-        type="text"
-        name="query"
-        placeholder="Search employees..."
-        hx-get="/employees"
-        hx-trigger="keyup changed delay:500ms"
-        hx-target="#employees-container"
-        hx-swap="innerHTML">
+<div class="controls-bar">
 
-    <div id="search-count"></div>
+    <div class="search-bar">
+        <input
+            type="text"
+            name="query"
+            placeholder="Search employees…"
+            hx-get="/employees"
+            hx-trigger="keyup changed delay:500ms"
+            hx-target="#employees-container"
+            hx-swap="innerHTML">
+    </div>
+
+    <div id="search-count" class="search-count"></div>
 
 </div>
 
-<div id="form-container">
-
+<div class="add-panel">
+    <h3>Add Employee</h3>
     <form
         hx-post="/add-employee"
         hx-target="#employees-container"
@@ -137,11 +175,12 @@ Replace the full contents of `templates/index.html` with:
 
         <input type="text" name="name" placeholder="Name" required>
         <input type="text" name="department" placeholder="Department" required>
-        <button type="submit">Add Employee</button>
+        <button type="submit" class="btn btn-primary">Add Employee</button>
 
     </form>
-
 </div>
+
+<div id="flash-container"></div>
 
 <div
     id="employees-container"
@@ -149,6 +188,8 @@ Replace the full contents of `templates/index.html` with:
     hx-trigger="load"
     hx-swap="innerHTML">
 </div>
+
+<div id="modal"></div>
 
 {% endblock %}
 
@@ -164,8 +205,12 @@ Replace the full contents of `templates/index.html` with:
 How this works:
 - `{% extends "base.html" %}` — tells Jinja2 to use `base.html` as the parent layout.
 - `{% block title %}Employee Dashboard{% endblock %}` — overrides the default title.
-- `{% block content %}...{% endblock %}` — injects the page body into `<main>`.
-- `{% block extra_scripts %}...{% endblock %}` — adds the form reset listener just before `</body>`, after HTMX loads.
+- `{% block content %}...{% endblock %}` — injects the page body into the `.main` area.
+- `{% block extra_scripts %}...{% endblock %}` — adds the form reset listener just before `</body>`.
+- `.page-header` renders the page title block from `main.css`.
+- `.controls-bar` places the search bar in a toolbar row above the table.
+- `.add-panel` wraps the Add Employee form in a styled card.
+- `#modal` is the mount point for HTMX-injected modal content (Module 06).
 - Everything outside a `{% block %}` tag is **ignored** in child templates.
 
 ---
@@ -182,9 +227,10 @@ Correct partial (no extends):
 
 ```html
 {# templates/partials/employees_table.html #}
-<table>
+<table class="data-table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Department</th>
             <th>Actions</th>
@@ -193,10 +239,12 @@ Correct partial (no extends):
     <tbody>
         {% for employee in employees %}
         <tr>
+            <td>{{ employee.id }}</td>
             <td>{{ employee.name }}</td>
-            <td>{{ employee.department }}</td>
-            <td>
+            <td><span class="pill">{{ employee.department }}</span></td>
+            <td class="actions">
                 <button
+                    class="btn btn-danger btn-sm"
                     hx-delete="/delete-employee/{{ employee.id }}"
                     hx-confirm="Are you sure?"
                     hx-target="closest tr"
