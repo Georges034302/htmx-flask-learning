@@ -74,4 +74,6 @@ htmx-flask-learning/
 
 Copyright (c) 2026 Dr. Georges Bou Ghantous. All rights reserved. See [LICENSE.md](LICENSE.md).
 
+---
+
 <sub><i><span style="color:#B0B0B0">👤 Author: Dr. Georges Bou Ghantous</span></i></sub>
