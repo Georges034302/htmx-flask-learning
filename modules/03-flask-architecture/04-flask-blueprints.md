@@ -1,4 +1,4 @@
-# Lesson 19: Introduce Flask Blueprints (Modular Route Organization)
+# Lesson 04: Introduce Flask Blueprints (Modular Route Organization)
 
 ## Concept
 Introduce Flask Blueprints (Modular Route Organization).

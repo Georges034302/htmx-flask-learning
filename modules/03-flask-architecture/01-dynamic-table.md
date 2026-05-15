@@ -1,4 +1,4 @@
-# Lesson 10: Build your first dynamic table component
+# Lesson 01: Build your first dynamic table component
 
 ## Concept
 Build your first dynamic table component.

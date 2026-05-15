@@ -1,4 +1,4 @@
-# Lesson 40: Production WSGI Server (Gunicorn)
+# Lesson 04: Production WSGI Server (Gunicorn)
 
 ## Concept
 Production WSGI Server (Gunicorn).

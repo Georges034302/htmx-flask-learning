@@ -1,4 +1,4 @@
-# Lesson 35: Authentication (Session-Based Login)
+# Lesson 01: Authentication (Session-Based Login)
 
 ## Concept
 Authentication (Session-Based Login).
@@ -6,7 +6,6 @@ Authentication (Session-Based Login).
 
 ## 1. Authentication (Session-Based Login)
 
-> **Not yet implemented** — instructions below describe the full session-based authentication pattern for this Flask + HTMX app.
 
 ### Goal
 Protect the employee dashboard behind a login page. Unauthenticated users are redirected to `/login`. Authenticated users can log out. No third-party auth library required — pure Flask sessions.

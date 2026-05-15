@@ -1,4 +1,4 @@
-# Lesson 37: Dockerize the App
+# Lesson 01: Dockerize the App
 
 ## Concept
 Dockerize the App.

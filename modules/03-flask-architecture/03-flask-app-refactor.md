@@ -1,4 +1,4 @@
-# Lesson 18: Refactor the Flask Application Structure
+# Lesson 03: Refactor the Flask Application Structure
 
 ## Concept
 Refactor the Flask Application Structure.

@@ -1,4 +1,4 @@
-# Lesson 12: Automatically refresh the employee table after form submission
+# Lesson 02: Automatically refresh the employee table after form submission
 
 ## Concept
 Automatically refresh the employee table after form submission.

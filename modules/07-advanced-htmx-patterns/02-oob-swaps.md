@@ -1,4 +1,4 @@
-# Lesson 44: Out-of-Band Swaps (hx-swap-oob)
+# Lesson 02: Out-of-Band Swaps (hx-swap-oob)
 
 ## Concept
 Out-of-Band Swaps (hx-swap-oob).
@@ -69,7 +69,7 @@ Create file: `templates/partials/employee_count.html`
 ```
 
 - `hx-swap-oob="true"` tells HTMX this element should replace the DOM node with `id="employee-count"`.
-- The count text uses the same singular/plural pattern from Lesson 22.
+- The count text uses the same singular/plural pattern from Module 05, Lesson 03.
 
 ---
 
@@ -114,7 +114,7 @@ def add_employee():
 Key points:
 - `table_html + count_html` — string concatenation is all that is needed.
 - HTMX parses the combined response, extracts the OOB element, and swaps both targets.
-- `employees_data` is the in-memory list. If using SQLAlchemy (Lesson 33), replace list operations with `db.session.add()` and `Employee.query.all()`.
+- `employees_data` is the in-memory list. If using SQLAlchemy (Module 08, Lesson 01), replace list operations with `db.session.add()` and `Employee.query.all()`.
 
 ---
 

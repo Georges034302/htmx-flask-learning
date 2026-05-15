@@ -1,4 +1,4 @@
-# Lesson 22: Add Dynamic Search Result Count
+# Lesson 03: Add Dynamic Search Result Count
 
 ## Concept
 Add Dynamic Search Result Count.

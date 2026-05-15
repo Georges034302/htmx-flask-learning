@@ -1,4 +1,4 @@
-# Lesson 20: Add Real Search Filtering by Multiple Fields
+# Lesson 01: Add Real Search Filtering by Multiple Fields
 
 ## Concept
 Add Real Search Filtering by Multiple Fields.

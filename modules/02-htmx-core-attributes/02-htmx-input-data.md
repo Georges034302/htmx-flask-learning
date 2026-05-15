@@ -1,4 +1,4 @@
-# Lesson 04: Send input data from HTMX to Flask
+# Lesson 02: Send input data from HTMX to Flask
 
 ## Concept
 Understand how input values move from HTMX attributes to Flask request arguments.

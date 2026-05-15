@@ -1,4 +1,4 @@
-# Lesson 03: Your first reactive HTMX interaction with hx-trigger
+# Lesson 01: Your first reactive HTMX interaction with hx-trigger
 
 ## Concept
 Your first reactive HTMX interaction with hx-trigger.

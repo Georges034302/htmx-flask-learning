@@ -1,4 +1,4 @@
-# Lesson 47: Deploy to Render
+# Lesson 06: Deploy to Render
 
 ## Concept
 Deploy to Render.
@@ -10,13 +10,13 @@ Deploy the Flask + HTMX application to Render — a platform-as-a-service that r
 
 > **Instructions only** — a Render account is required. Sign up at https://render.com.
 >
-> **Prerequisites:** Lesson 40 (Gunicorn) and Lesson 41 (environment config) must be complete. The app must start via Gunicorn and read its configuration from environment variables.
+> **Prerequisites:** Module 10, Lesson 04 (Gunicorn) and Module 10, Lesson 05 (environment config) must be complete. The app must start via Gunicorn and read its configuration from environment variables.
 
 ---
 
 ### 1.1 Why Render as an alternative to Azure
 
-| Factor | Azure Container Apps (Lesson 38) | Render |
+| Factor | Azure Container Apps (Module 10, Lesson 02) | Render |
 |---|---|---|
 | Setup complexity | High (CLI, ACR, resource groups) | Low (GitHub connect + click deploy) |
 | Free tier | Limited / trial only | Yes (free web service) |
@@ -60,7 +60,7 @@ web: gunicorn app:app
 - `web` — Render service type (web process that receives HTTP traffic).
 - `gunicorn app:app` — module `app.py`, Flask instance `app`.
 
-For production with the Gunicorn config file from Lesson 40:
+For production with the Gunicorn config file from Module 10, Lesson 04:
 
 ```
 web: gunicorn -c gunicorn.conf.py app:app

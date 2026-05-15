@@ -1,4 +1,4 @@
-# Lesson 21: Add Empty-State Handling ("No Results Found")
+# Lesson 02: Add Empty-State Handling ("No Results Found")
 
 ## Concept
 Add Empty-State Handling ("No Results Found").

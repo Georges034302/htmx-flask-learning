@@ -1,4 +1,4 @@
-# Lesson 15: Edit employees inline with hx-put
+# Lesson 05: Edit employees inline with hx-put
 
 ## Concept
 Edit employees inline with hx-put.

@@ -1,4 +1,4 @@
-# Lesson 30: Add Auto-Dismissing Flash Messages
+# Lesson 05: Add Auto-Dismissing Flash Messages
 
 ## Concept
 Add Auto-Dismissing Flash Messages.

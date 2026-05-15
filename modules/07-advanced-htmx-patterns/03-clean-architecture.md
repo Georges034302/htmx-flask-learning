@@ -1,4 +1,4 @@
-# Lesson 46: Clean Architecture and Route Design for HTMX Apps
+# Lesson 03: Clean Architecture and Route Design for HTMX Apps
 
 ## Concept
 Clean Architecture and Route Design for HTMX Apps.
@@ -8,7 +8,7 @@ Clean Architecture and Route Design for HTMX Apps.
 ### Goal
 Establish clear, consistent naming conventions for Flask routes and template files in HTMX applications — distinguishing between full-page routes and fragment routes — so the codebase scales without confusion.
 
-> **Prerequisites:** Lesson 18 (refactor), Lesson 19 (Blueprints), Lesson 42 (template inheritance), Lesson 43 (detecting HTMX requests). This lesson is a design reference, not a new feature.
+> **Prerequisites:** Module 03, Lesson 03 (refactor), Module 03, Lesson 04 (Blueprints), Module 03, Lesson 05 (template inheritance), Module 07, Lesson 01 (detecting HTMX requests). This lesson is a design reference, not a new feature.
 
 ---
 
@@ -38,7 +38,7 @@ Define two categories:
 
 **Page routes** — return a full HTML page (or redirect):
 - Intended for browser navigation.
-- Use progressive enhancement (Lesson 43) to also serve HTMX.
+- Use progressive enhancement (Module 07, Lesson 01) to also serve HTMX.
 - Return `render_template("some_page.html")` (which extends `base.html`).
 
 **Fragment routes** — return an HTML fragment only:
@@ -93,13 +93,13 @@ def home():
 # ---------------------------------------------------------------------------
 
 @main.route("/employees", methods=["GET"])
-def list_employees():
+def get_employees():
     """
     GET /employees
     Page route: returns full page for browser navigation.
     Fragment route: returns table partial for HTMX requests.
     """
-    from routes.main_routes import is_htmx_request  # uses helper from Lesson 43
+    from routes.main_routes import is_htmx_request  # uses helper from Module 07, Lesson 01
     from data.mock import employees as employees_data
 
     query_str = request.args.get("query", "").lower()
@@ -268,7 +268,7 @@ With `url_prefix="/employees"`, the route decorator becomes:
 
 ```
 templates/
-├── base.html                    ← shared layout (Lesson 42)
+├── base.html                    ← shared layout (Module 03, Lesson 05)
 ├── index.html                   ← home page (extends base.html)
 ├── employees/
 │   ├── list.html                ← full employee list page (extends base.html)

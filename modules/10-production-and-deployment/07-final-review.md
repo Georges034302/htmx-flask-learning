@@ -1,4 +1,4 @@
-# Lesson 48: Final Review and Best Practices
+# Lesson 07: Final Review and Best Practices
 
 ## Concept
 Final Review and Best Practices.
@@ -88,10 +88,10 @@ State lives in the database. The UI is always rendered from the database, not re
 Routes return HTML fragments, not JSON. The template is the serialiser. The browser does not need JavaScript to interpret the response — it inserts it directly.
 
 **3. Each interaction targets one region.**
-Design pages as a set of independent regions. Each HTMX action updates exactly one region. Use OOB swaps (Lesson 44) only when two regions must change atomically.
+Design pages as a set of independent regions. Each HTMX action updates exactly one region. Use OOB swaps (Module 07, Lesson 02) only when two regions must change atomically.
 
 **4. Progressive enhancement by default.**
-Every route that returns a fragment should also work as a full-page response (Lesson 43). This is achieved with a single `if is_htmx_request()` check — it costs one line and buys robust, accessible URLs.
+Every route that returns a fragment should also work as a full-page response (Module 07, Lesson 01). This is achieved with a single `if is_htmx_request()` check — it costs one line and buys robust, accessible URLs.
 
 **5. Keep JavaScript minimal and event-driven.**
 When JavaScript is necessary (auto-dismiss, form reset, focus management), trigger it from HTMX lifecycle events (`htmx:afterSwap`, custom `HX-Trigger` events). Never use JavaScript to manage application state or call APIs directly.
@@ -111,21 +111,21 @@ When JavaScript is necessary (auto-dismiss, form reset, focus management), trigg
 | Returning JSON from routes that HTMX calls | HTMX injects raw JSON text into the DOM | Always return rendered HTML fragments |
 | Using `hx-swap="innerHTML"` on the wrong element | Entire parent contents wiped instead of just the target region | Use `hx-target` to specify the exact target element |
 | Forgetting `hx-swap="outerHTML"` on delete buttons | Deleted row remains in DOM (empty response replaces inner HTML, not the row itself) | Always pair `hx-delete` row removal with `hx-swap="outerHTML"` + `hx-target="closest tr"` |
-| Hardcoding secrets in `app.py` | Credentials exposed in version control | Use `.env` + `python-dotenv` (Lesson 41) |
-| Running Flask dev server in production | Single-threaded, unsafe for concurrent traffic | Use Gunicorn (Lesson 40) |
+| Hardcoding secrets in `app.py` | Credentials exposed in version control | Use `.env` + `python-dotenv` (Module 10, Lesson 05) |
+| Running Flask dev server in production | Single-threaded, unsafe for concurrent traffic | Use Gunicorn (Module 10, Lesson 04) |
 | Extending `base.html` in partials | Nested HTML breaks the page | Partials are standalone fragments — no `{% extends %}` |
-| Not detecting `HX-Request` | Direct URL visits return bare fragments | Add `is_htmx_request()` check (Lesson 43) |
-| Triggering a second GET after every action via `HX-Trigger` | Two round trips when one would do | Use OOB swaps (Lesson 44) for small secondary updates |
+| Not detecting `HX-Request` | Direct URL visits return bare fragments | Add `is_htmx_request()` check (Module 07, Lesson 01) |
+| Triggering a second GET after every action via `HX-Trigger` | Two round trips when one would do | Use OOB swaps (Module 07, Lesson 02) for small secondary updates |
 
 ---
 
 ### 1.6 Keeping the app maintainable as it grows
 
 **Route organisation:**
-Follow the resource-based naming convention from Lesson 46. One Blueprint per major resource. Page routes and fragment routes are distinguished by URL convention, not by magic.
+Follow the resource-based naming convention from Module 07, Lesson 03. One Blueprint per major resource. Page routes and fragment routes are distinguished by URL convention, not by magic.
 
 **Template organisation:**
-Follow the folder structure from Lesson 46. Page templates extend `base.html`. Partials live in `partials/` and are never extended.
+Follow the folder structure from Module 07, Lesson 03. Page templates extend `base.html`. Partials live in `partials/` and are never extended.
 
 **Adding new features:**
 1. Add the route in the appropriate Blueprint.

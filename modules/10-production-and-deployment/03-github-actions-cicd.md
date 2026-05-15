@@ -1,4 +1,4 @@
-# Lesson 39: CI/CD with GitHub Actions
+# Lesson 03: CI/CD with GitHub Actions
 
 ## Concept
 CI/CD with GitHub Actions.

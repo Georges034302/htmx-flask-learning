@@ -1,4 +1,4 @@
-# Lesson 32: Add Modal Windows for Employee Details
+# Lesson 07: Add Modal Windows for Employee Details
 
 ## Concept
 Add Modal Windows for Employee Details.

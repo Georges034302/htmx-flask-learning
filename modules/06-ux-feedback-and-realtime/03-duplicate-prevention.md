@@ -1,4 +1,4 @@
-# Lesson 28: Prevent Duplicate Employees + Show Flash Message
+# Lesson 03: Prevent Duplicate Employees + Show Flash Message
 
 ## Concept
 Prevent Duplicate Employees + Show Flash Message.

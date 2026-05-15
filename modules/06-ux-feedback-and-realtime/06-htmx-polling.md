@@ -1,4 +1,4 @@
-# Lesson 31: Add Polling with Automatic Table Refresh
+# Lesson 06: Add Polling with Automatic Table Refresh
 
 ## Concept
 Add Polling with Automatic Table Refresh.
@@ -31,6 +31,8 @@ hx-trigger="load, every 5s, employee-added from:body"
 
 Current implementation note:
 - The table container includes `hx-include="#employee-search"` so polling and event refreshes preserve the active search query. If the search input is cleared, the full table is shown again.
+
+> **`hx-include` explained:** Normally an HTMX request only sends values from within its own element. `hx-include` lets you include values from any other element (identified by CSS selector) in the request. Here it ensures the active search term is sent with every poll so the refreshed table stays filtered.
 
 No manual action or page refresh is required.
 

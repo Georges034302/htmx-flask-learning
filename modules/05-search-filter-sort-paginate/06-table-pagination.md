@@ -1,4 +1,4 @@
-# Lesson 25: Add Pagination to the Employee Table
+# Lesson 06: Add Pagination to the Employee Table
 
 ## Concept
 Add Pagination to the Employee Table.

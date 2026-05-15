@@ -1,4 +1,4 @@
-# Lesson 09: Trigger requests automatically on page load
+# Lesson 07: Trigger requests automatically on page load
 
 ## Concept
 Trigger requests automatically on page load.

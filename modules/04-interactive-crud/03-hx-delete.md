@@ -1,4 +1,4 @@
-# Lesson 13: Delete employees dynamically with hx-delete
+# Lesson 03: Delete employees dynamically with hx-delete
 
 ## Concept
 Delete employees dynamically with hx-delete.

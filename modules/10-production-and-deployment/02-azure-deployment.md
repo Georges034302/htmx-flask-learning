@@ -1,4 +1,4 @@
-# Lesson 38: Deploy to Azure
+# Lesson 02: Deploy to Azure
 
 ## Concept
 Deploy to Azure.

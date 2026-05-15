@@ -1,4 +1,4 @@
-# Lesson 23: Add Real-Time Table Filtering with HTMX
+# Lesson 04: Add Real-Time Table Filtering with HTMX
 
 ## Concept
 Add Real-Time Table Filtering with HTMX.

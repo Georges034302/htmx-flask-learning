@@ -1,4 +1,4 @@
-# Lesson 07: Add loading indicators with hx-indicator
+# Lesson 05: Add loading indicators with hx-indicator
 
 ## Concept
 Add loading indicators with hx-indicator.

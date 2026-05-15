@@ -1,4 +1,4 @@
-# Lesson 34: Form Validation System
+# Lesson 02: Form Validation System
 
 ## Concept
 Form Validation System.
@@ -6,7 +6,6 @@ Form Validation System.
 
 ## 1. Form Validation System
 
-> **Not yet implemented** — instructions below describe the full server-side validation pattern to add once the DB step is ready (or directly on top of mock data).
 
 ### Goal
 Add field-level validation to the Add Employee form: required fields, minimum length, allowed department values, and inline error feedback — all server-side, rendered as HTMX partials.

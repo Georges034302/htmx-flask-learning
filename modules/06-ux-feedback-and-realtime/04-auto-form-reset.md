@@ -1,4 +1,4 @@
-# Lesson 29: Clear the Form Automatically After Successful Submission
+# Lesson 04: Clear the Form Automatically After Successful Submission
 
 ## Concept
 Clear the Form Automatically After Successful Submission.

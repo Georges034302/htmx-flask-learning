@@ -1,4 +1,4 @@
-# Lesson 05: Add smart request timing with delay
+# Lesson 03: Add smart request timing with delay
 
 ## Concept
 Add smart request timing with delay.

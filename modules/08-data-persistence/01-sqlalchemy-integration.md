@@ -1,4 +1,4 @@
-# Lesson 33: Real Database Integration (SQLite + SQLAlchemy)
+# Lesson 01: Real Database Integration (SQLite + SQLAlchemy)
 
 ## Concept
 Real Database Integration (SQLite + SQLAlchemy).
@@ -6,7 +6,6 @@ Real Database Integration (SQLite + SQLAlchemy).
 
 ## 1. Real Database Integration (SQLite + SQLAlchemy)
 
-> **Not yet implemented** — instructions below describe the full migration path when a database is available.
 
 ### Goal
 Replace the in-memory `employees` list in `data/mock.py` with a real SQLite database managed by Flask-SQLAlchemy.

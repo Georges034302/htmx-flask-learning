@@ -1,4 +1,4 @@
-# Lesson 42: Template Inheritance (base.html)
+# Lesson 05: Template Inheritance (base.html)
 
 ## Concept
 Template Inheritance (base.html).

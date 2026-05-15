@@ -1,4 +1,4 @@
-# Lesson 14: Remove rows instantly with hx-swap="outerHTML"
+# Lesson 04: Remove rows instantly with hx-swap="outerHTML"
 
 ## Concept
 Remove rows instantly with hx-swap="outerHTML".

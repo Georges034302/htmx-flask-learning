@@ -1,4 +1,4 @@
-# Lesson 45: MySQL Integration (Switching from SQLite)
+# Lesson 03: MySQL Integration (Switching from SQLite)
 
 ## Concept
 MySQL Integration (Switching from SQLite).
@@ -8,7 +8,7 @@ MySQL Integration (Switching from SQLite).
 ### Goal
 Switch the Flask-SQLAlchemy database backend from SQLite (development) to MySQL (production) by changing only the connection URI and driver — no model or route code changes required.
 
-> **Prerequisite:** Complete Lesson 33 (SQLAlchemy integration) before this lesson. This lesson builds directly on the `db.py`, `models/employee.py`, and `config.py` files created there.
+> **Prerequisite:** Complete Module 08, Lesson 01 (SQLAlchemy integration) before this lesson. This lesson builds directly on the `db.py`, `models/employee.py`, and `config.py` files created there.
 
 ---
 
@@ -73,7 +73,7 @@ mysql+pymysql://app_user:secure_pass@db.example.com:3306/prod_employees
 
 ### 1.4 Update config.py
 
-Open `config.py` (created in Lesson 41).
+Open `config.py` (created in Module 10, Lesson 05).
 
 Update it to select the correct URI based on environment:
 

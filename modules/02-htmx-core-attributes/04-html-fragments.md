@@ -1,4 +1,4 @@
-# Lesson 06: Return dynamic HTML fragments instead of plain text
+# Lesson 04: Return dynamic HTML fragments instead of plain text
 
 ## Concept
 Return dynamic HTML fragments instead of plain text.

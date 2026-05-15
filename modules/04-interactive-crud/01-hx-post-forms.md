@@ -1,4 +1,6 @@
-# Lesson 11: Create your first HTMX form submission with hx-post
+# Lesson 01: Create your first HTMX form submission with hx-post
+
+> **Prerequisites:** Complete Module 03, Lesson 01 (dynamic table) before this lesson. The `/employees` route and the `employees_data` list must already exist in your app.
 
 ## Concept
 Create your first HTMX form submission with hx-post.

@@ -1,4 +1,4 @@
-# Lesson 08: Replace vs append content with hx-swap
+# Lesson 06: Replace vs append content with hx-swap
 
 ## Concept
 Replace vs append content with hx-swap.

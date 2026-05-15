@@ -1,4 +1,4 @@
-# Lesson 24: Add Sorting to the Employee Table
+# Lesson 05: Add Sorting to the Employee Table
 
 ## Concept
 Add Sorting to the Employee Table.

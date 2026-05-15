@@ -1,4 +1,4 @@
-# Lesson 43: Progressive Enhancement and Detecting HTMX Requests
+# Lesson 01: Progressive Enhancement and Detecting HTMX Requests
 
 ## Concept
 Progressive Enhancement and Detecting HTMX Requests.
@@ -114,7 +114,7 @@ What changed:
 - If `HX-Request` is present → returns only the table partial (same as before).
 - If browser navigates directly → returns the full `index.html` with layout, which also pre-renders the table via `hx-trigger="load"`.
 
-**Important:** `employees_data` refers to the data source imported at the top of `main_routes.py`. If you are using the mock list, this is `from data.mock import employees as employees_data`. If you completed Lesson 33 and are using SQLAlchemy, apply the same `if is_htmx_request()` check to your database-backed route instead.
+**Important:** `employees_data` refers to the data source imported at the top of `main_routes.py`. If you are using the mock list, this is `from data.mock import employees as employees_data`. If you completed Module 08, Lesson 01 and are using SQLAlchemy, apply the same `if is_htmx_request()` check to your database-backed route instead.
 
 ---
 

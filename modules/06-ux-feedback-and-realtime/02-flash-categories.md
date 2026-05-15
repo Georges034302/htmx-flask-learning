@@ -1,4 +1,4 @@
-# Lesson 27: Flash Message Categories (success, warning, error)
+# Lesson 02: Flash Message Categories (success, warning, error)
 
 ## Concept
 Flash Message Categories (success, warning, error).

@@ -1,4 +1,4 @@
-# Lesson 17: Add CSS Styling and Improve UX Structure
+# Lesson 02: Add CSS Styling and Improve UX Structure
 
 ## Concept
 Add CSS Styling and Improve UX Structure.

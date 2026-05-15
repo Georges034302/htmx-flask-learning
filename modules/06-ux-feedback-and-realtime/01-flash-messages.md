@@ -1,4 +1,4 @@
-# Lesson 26: Add Flash Messages for Global User Feedback
+# Lesson 01: Add Flash Messages for Global User Feedback
 
 ## Concept
 Add Flash Messages for Global User Feedback.
@@ -89,7 +89,7 @@ One POST now triggers both a table refresh and a notification refresh.
 }
 ```
 
-- Category-specific styles (`.message.warning`, `.message.error`) are added in Lesson 27.
+- Category-specific styles (`.message.warning`, `.message.error`) are added in Module 06, Lesson 02.
 
 ### 1.8 Test
 

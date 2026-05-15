@@ -1,4 +1,4 @@
-# Lesson 41: Environment Configuration (.env and config classes)
+# Lesson 05: Environment Configuration (.env and config classes)
 
 ## Concept
 Environment Configuration (.env and config classes).

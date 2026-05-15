@@ -1,4 +1,4 @@
-# Lesson 16: Add a Cancel button to inline editing
+# Lesson 06: Add a Cancel button to inline editing
 
 ## Concept
 Add a Cancel button to inline editing.
