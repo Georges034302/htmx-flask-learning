@@ -1,101 +1,77 @@
-# HTMX + Flask Learning Repository
+# HTMX + Flask Learning
 
-This repository is a step-by-step learning project for building a modern, server-rendered web app with Flask and HTMX.
+A structured curriculum for building server-rendered web applications with Flask and HTMX. 48 lessons across 10 independent modules — from environment setup through production deployment.
 
-It is designed as a progressive curriculum, starting from environment setup and first requests, then moving through CRUD, reactive UI updates, UX patterns, authentication, uploads, and production/deployment concepts.
+## Topics Covered
 
-## Repository Purpose
+- Flask fundamentals and Blueprint-based project structure
+- HTMX core attributes and server-driven UI patterns
+- Full CRUD with inline editing and partial HTML updates
+- Search, filtering, sorting, and pagination
+- UX feedback — flash messages, polling, and modals
+- Template inheritance and progressive enhancement
+- Out-of-band swaps and clean route architecture
+- SQLAlchemy, form validation, and MySQL integration
+- Session-based authentication and file uploads
+- Docker, CI/CD, Azure, and Render deployment
 
-- Teach practical HTMX + Flask patterns by building one coherent application.
-- Keep frontend logic lightweight by shifting behavior to server-rendered partials.
-- Provide reusable lessons that can stand alone as a learning track.
+## Architecture
 
-## What Is Implemented Today
+Server-driven UI: Flask owns state and renders HTML fragments; HTMX replaces targeted DOM regions on response. No frontend framework. Behavior is expressed through declarative `hx-*` attributes on standard HTML elements.
 
-Core app features currently available in this repository:
-
-- Flask app with Blueprint-based route organization
-- HTMX-driven dynamic UI interactions
-- Employee CRUD with inline edit and row-level updates
-- Search, sorting, pagination, and periodic polling
-- Flash messages with category styling and auto-dismiss
-- Session-based login/logout protection
-- File upload endpoint with type checks and max-size limit
-- Modal details view for employee records
-
-## Lessons-First Structure
-
-The complete learning path lives in the lessons folder.
-
-- Start here: [lessons/index.md](lessons/index.md)
-- Total lessons: 41
-- Core implementation path: lessons 01-32, 35-36
-- Advanced instructions-only path: lessons 33-34, 37-41
-
-If you follow the lessons in order, you can build the full local website and then continue to production/deployment workflows.
-
-## Quick Start
-
-### 1) Create and activate virtual environment
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
+```
+Browser ──hx-get/post/put/delete──► Flask route
+Flask route ──renders partial──► Jinja2 template fragment
+Fragment ──replaces target element──► Browser DOM
 ```
 
-### 2) Install dependencies
+## Repository Structure
 
-```bash
-pip install -r requirements.txt
+```
+htmx-flask-learning/
+├── LICENSE.md
+├── README.md
+├── data/
+│   ├── employee_db_setup.sql    # seed script for DB modules
+│   └── mock.py                  # in-memory mock dataset
+├── docs/
+│   ├── index.md                 # full course index
+│   ├── architecture-and-patterns.md
+│   ├── course-overview.md
+│   ├── learning-path.md
+│   ├── setup-and-runbook.md
+│   ├── database-notes.md
+│   └── changinglog.md
+└── modules/
+    ├── 01-introduction/              (2 lessons)
+    ├── 02-htmx-core-attributes/      (7 lessons)
+    ├── 03-flask-architecture/        (5 lessons)
+    ├── 04-interactive-crud/          (6 lessons)
+    ├── 05-search-filter-sort-paginate/ (6 lessons)
+    ├── 06-ux-feedback-and-realtime/  (7 lessons)
+    ├── 07-advanced-htmx-patterns/    (3 lessons)
+    ├── 08-data-persistence/          (3 lessons)
+    ├── 09-application-features/      (2 lessons)
+    └── 10-production-and-deployment/ (7 lessons)
 ```
 
-### 3) Run the app
+## Start Here
 
-```bash
-python app.py
-```
+[docs/index.md](docs/index.md) — full module and lesson index
 
-Open http://127.0.0.1:5000 in your browser.
+## Documentation
 
-## Demo Credentials
-
-Current mock login account:
-
-- Username: `admin`
-- Password: `password123`
-
-Stored in [data/mock.py](data/mock.py).
-
-## Tech Stack
-
-- Python 3
-- Flask
-- HTMX
-- Jinja2 templates
-- Gunicorn (included dependency for production lessons)
-
-## Repository Layout
-
-- [app.py](app.py): Flask app entrypoint and config
-- [routes/main_routes.py](routes/main_routes.py): application routes
-- [templates/index.html](templates/index.html): main UI shell
-- [templates/partials](templates/partials): server-rendered HTML fragments
-- [static/style.css](static/style.css): app styling
-- [data/mock.py](data/mock.py): in-memory mock dataset
-- [lessons](lessons): curriculum content
-
-## Notes
-
-- This project intentionally demonstrates server-driven UI architecture.
-- Some advanced lessons are marked instructions-only because they depend on external infrastructure (for example cloud subscriptions, CI secrets, or container runtime).
+| File | Purpose |
+|------|---------|
+| [docs/course-overview.md](docs/course-overview.md) | Scope, outcomes, entry points |
+| [docs/learning-path.md](docs/learning-path.md) | Phase breakdown and sequencing |
+| [docs/architecture-and-patterns.md](docs/architecture-and-patterns.md) | Design patterns and project structure |
+| [docs/setup-and-runbook.md](docs/setup-and-runbook.md) | Prerequisites and study workflow |
+| [docs/database-notes.md](docs/database-notes.md) | DB seed script reference |
+| [docs/changinglog.md](docs/changinglog.md) | Change history |
 
 ---
-## Copyright and License
 
-Copyright (c) 2026 Dr. Georges Bou Ghantous. All rights reserved.
-
-License details are provided in [docs/license.md](docs/license.md).
-
----
+Copyright (c) 2026 Dr. Georges Bou Ghantous. All rights reserved. See [LICENSE.md](LICENSE.md).
 
 <sub><i><span style="color:#B0B0B0">👤 Author: Dr. Georges Bou Ghantous</span></i></sub>

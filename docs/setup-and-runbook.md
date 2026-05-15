@@ -1,17 +1,17 @@
 # Setup and Runbook
 
 ## Repository Mode
-This repository currently stores curriculum assets (lessons/docs/data) and is intended as a lessons-first source.
+This repository currently stores curriculum assets (modules/docs/data) and is intended as a modules-first source.
 
 ## Minimum Prerequisites
 - Python 3.10+
 - Git
-- SQLite CLI (`sqlite3`) for DB lessons
-- Docker/Azure CLI only for advanced deployment lessons
+- SQLite CLI (`sqlite3`) for DB modules
+- Docker/Azure CLI only for advanced deployment modules
 
 ## Study Workflow
-1. Open [lessons/index.md](../lessons/index.md)
-2. Complete lessons in order
+1. Open [docs/index.md](../docs/index.md)
+2. Complete modules in order
 3. Apply each lesson into a clean working project directory
 4. Validate expected behavior at each checkpoint
 

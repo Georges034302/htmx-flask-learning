@@ -1,0 +1,31 @@
+# Lesson 20: Add Real Search Filtering by Multiple Fields
+
+## Concept
+Add Real Search Filtering by Multiple Fields.
+
+
+## 1. Add Real Search Filtering by Multiple Fields
+
+### Goal
+Extend the `/search` route to filter by both `name` and `department`, not just name.
+
+### 1.1 Updated filtering logic in routes/main_routes.py
+
+```python
+filtered_employees = []
+for employee in employees:
+    name_match = query in employee["name"].lower()
+    department_match = query in employee["department"].lower()
+    if name_match or department_match:
+        filtered_employees.append(employee)
+```
+
+### 1.2 Test cases
+
+| Query    | Expected results  |
+|----------|-------------------|
+| `IT`     | Alice, David      |
+| `Finance`| Charlie           |
+| `Emma`   | Emma              |
+| `HR`     | Bob               |
+
