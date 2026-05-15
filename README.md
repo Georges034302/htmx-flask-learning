@@ -33,17 +33,7 @@ htmx-flask-learning/
 ├── README.md
 ├── data/        ...
 ├── docs/        ...
-└── modules/
-    ├── 01-introduction/
-    ├── 02-htmx-core-attributes/
-    ├── 03-flask-architecture/
-    ├── 04-interactive-crud/
-    ├── 05-search-filter-sort-paginate/
-    ├── 06-ux-feedback-and-realtime/
-    ├── 07-advanced-htmx-patterns/
-    ├── 08-data-persistence/
-    ├── 09-application-features/
-    └── 10-production-and-deployment/
+└── modules/     ...
 ```
 
 Full structure: [docs/architecture-and-patterns.md](docs/architecture-and-patterns.md)
