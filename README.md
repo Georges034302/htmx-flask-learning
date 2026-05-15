@@ -31,29 +31,22 @@ Fragment ──replaces target element──► Browser DOM
 htmx-flask-learning/
 ├── LICENSE.md
 ├── README.md
-├── data/
-│   ├── employee_db_setup.sql    # seed script for DB modules
-│   └── mock.py                  # in-memory mock dataset
-├── docs/
-│   ├── index.md                 # full course index
-│   ├── architecture-and-patterns.md
-│   ├── course-overview.md
-│   ├── learning-path.md
-│   ├── setup-and-runbook.md
-│   ├── database-notes.md
-│   └── changinglog.md
+├── data/        ...
+├── docs/        ...
 └── modules/
-    ├── 01-introduction/              (2 lessons)
-    ├── 02-htmx-core-attributes/      (7 lessons)
-    ├── 03-flask-architecture/        (5 lessons)
-    ├── 04-interactive-crud/          (6 lessons)
-    ├── 05-search-filter-sort-paginate/ (6 lessons)
-    ├── 06-ux-feedback-and-realtime/  (7 lessons)
-    ├── 07-advanced-htmx-patterns/    (3 lessons)
-    ├── 08-data-persistence/          (3 lessons)
-    ├── 09-application-features/      (2 lessons)
-    └── 10-production-and-deployment/ (7 lessons)
+    ├── 01-introduction/
+    ├── 02-htmx-core-attributes/
+    ├── 03-flask-architecture/
+    ├── 04-interactive-crud/
+    ├── 05-search-filter-sort-paginate/
+    ├── 06-ux-feedback-and-realtime/
+    ├── 07-advanced-htmx-patterns/
+    ├── 08-data-persistence/
+    ├── 09-application-features/
+    └── 10-production-and-deployment/
 ```
+
+Full structure: [docs/architecture-and-patterns.md](docs/architecture-and-patterns.md)
 
 ## Start Here
 
