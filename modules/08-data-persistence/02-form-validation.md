@@ -92,7 +92,7 @@ Error display uses the `.flash.flash-error` classes already in `main.css`. The `
 
 ```html
 <div class="flash flash-error">
-    <ul style="margin:0; padding-left:18px;">
+    <ul>
         {% for error in errors %}
             <li>{{ error }}</li>
         {% endfor %}

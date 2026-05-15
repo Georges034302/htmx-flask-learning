@@ -485,6 +485,7 @@ input[type="search"]::placeholder { color: var(--muted); }
     border-color: var(--info-line);
     color: var(--info-ink);
 }
+.flash ul { margin: 0; padding-left: 1.1rem; }
 
 /* ----- Panel (generic card container) ------------------------------------- */
 .panel {
@@ -503,6 +504,7 @@ input[type="search"]::placeholder { color: var(--muted); }
     margin: 0 0 10px;
     font-weight: 600;
 }
+.panel-login { max-width: 380px; margin: 80px auto; }
 
 /* ----- Stat cards (dashboard summary) ------------------------------------- */
 .card-grid {

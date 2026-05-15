@@ -149,7 +149,7 @@ In `templates/index.html`, add the counter `<span>` somewhere visible — for ex
         hx-trigger="submit">
         <input type="text" name="name" placeholder="Name" required>
         <input type="text" name="department" placeholder="Department" required>
-        <button type="submit">Add Employee</button>
+        <button type="submit" class="btn btn-primary">Add Employee</button>
     </form>
 </div>
 

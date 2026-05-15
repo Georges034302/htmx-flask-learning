@@ -36,7 +36,7 @@ In production this would be a DB table with hashed passwords (e.g. `werkzeug.sec
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
-<div class="panel" style="max-width:380px; margin:80px auto;">
+<div class="panel panel-login">
     <h2>Login</h2>
 
     {% with messages = get_flashed_messages() %}
@@ -50,7 +50,7 @@ In production this would be a DB table with hashed passwords (e.g. `werkzeug.sec
     <form method="POST" action="/login">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
 </div>
 </body>
@@ -138,9 +138,9 @@ Apply `@login_required` to any route that should be protected.
 Add to the top of the page alongside the heading:
 
 ```html
-<div style="display:flex; justify-content:space-between; align-items:center;">
+<div class="page-header">
     <h1>Employee Dashboard</h1>
-    <a href="/logout"><button>Logout</button></a>
+    <a href="/logout" class="btn btn-ghost">Logout</a>
 </div>
 ```
 
@@ -151,8 +151,8 @@ Add to the top of the page alongside the heading:
 The login page uses `.panel` for the card container and `.flash.flash-error` for authentication error messages — both already defined in `main.css`. No custom CSS is needed.
 
 ```html
-<!-- Login card wrapper using existing panel class -->
-<div class="panel" style="max-width:380px; margin:80px auto;">
+<!-- Login card wrapper using existing panel classes -->
+<div class="panel panel-login">
 ```
 
 Buttons on the login form use `.btn .btn-primary` from `main.css`.

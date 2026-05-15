@@ -99,7 +99,7 @@ def upload_file():
     hx-target="#upload-result"
     hx-encoding="multipart/form-data">
     <input type="file" name="file" accept=".png,.jpg,.jpeg,.gif,.pdf,.txt,.csv">
-    <button type="submit">Upload</button>
+    <button type="submit" class="btn btn-primary">Upload</button>
 </form>
 
 <div id="upload-result"></div>
