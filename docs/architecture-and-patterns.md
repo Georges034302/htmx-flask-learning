@@ -78,4 +78,5 @@ Field-level checks → business rule checks → persistence. No write to the dat
 | OOB swaps | [07-advanced-htmx-patterns/02-oob-swaps.md](../modules/07-advanced-htmx-patterns/02-oob-swaps.md) |
 | Clean route design | [07-advanced-htmx-patterns/03-clean-architecture.md](../modules/07-advanced-htmx-patterns/03-clean-architecture.md) |
 | SQLAlchemy integration | [08-data-persistence/01-sqlalchemy-integration.md](../modules/08-data-persistence/01-sqlalchemy-integration.md) |
+| Azure production deployment | [docs/production.md](production.md) |
 | Production config | [10-production-and-deployment](../modules/10-production-and-deployment/) |

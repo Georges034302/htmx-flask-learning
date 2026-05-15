@@ -1,35 +1,41 @@
--- Employee database setup script
+-- Employee database setup script — MySQL 8 compatible
 --
--- Recommended usage for SQLite:
+-- Local manual usage:
+--   mysql -u root -p < data/employee_db_setup.sql
+--
+-- Docker usage (automatic):
+--   Mount this file into the MySQL container init directory:
+--   ./data/employee_db_setup.sql:/docker-entrypoint-initdb.d/employee_db_setup.sql
+--   The mysql:8 image runs all *.sql files in that directory on first start.
+--
+-- SQLite usage (early development modules only):
 --   sqlite3 employees.db < data/employee_db_setup.sql
---
--- For PostgreSQL/MySQL, create/select the database first, then run this script.
--- Example (PostgreSQL):
---   CREATE DATABASE employee_db;
---   \c employee_db
+--   Note: Remove the CREATE DATABASE / USE / ENGINE / COLLATE lines first.
 
-BEGIN TRANSACTION;
+CREATE DATABASE IF NOT EXISTS employees_db
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE employees_db;
 
 DROP TABLE IF EXISTS employees;
 
 CREATE TABLE employees (
-    id INTEGER PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    department VARCHAR(100) NOT NULL
-);
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    name        VARCHAR(100) NOT NULL,
+    department  VARCHAR(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO employees (id, name, department) VALUES
-    (1, 'Alice', 'IT'),
-    (2, 'Bob', 'HR'),
-    (3, 'Charlie', 'Finance'),
-    (4, 'David', 'IT'),
-    (5, 'Emma', 'Marketing'),
-    (6, 'Frank', 'Security'),
-    (7, 'Grace', 'IT'),
-    (8, 'Helen', 'Finance'),
-    (9, 'Ian', 'HR'),
-    (10, 'Jack', 'Marketing'),
-    (11, 'Karen', 'IT'),
-    (12, 'Leo', 'Security');
-
-COMMIT;
+INSERT INTO employees (name, department) VALUES
+    ('Alice',   'IT'),
+    ('Bob',     'HR'),
+    ('Charlie', 'Finance'),
+    ('David',   'IT'),
+    ('Emma',    'Marketing'),
+    ('Frank',   'Security'),
+    ('Grace',   'IT'),
+    ('Helen',   'Finance'),
+    ('Ian',     'HR'),
+    ('Jack',    'Marketing'),
+    ('Karen',   'IT'),
+    ('Leo',     'Security');

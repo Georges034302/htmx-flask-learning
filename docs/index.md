@@ -112,12 +112,15 @@ Complete lesson index for the HTMX + Flask learning track. Lessons are organized
 
 ## Module 10 — Production and Deployment
 
-| # | Lesson |
-|---|--------|
-| 01 | [Dockerize the App](../modules/10-production-and-deployment/01-docker.md) |
-| 02 | [Deploy to Azure](../modules/10-production-and-deployment/02-azure-deployment.md) |
-| 03 | [CI/CD with GitHub Actions](../modules/10-production-and-deployment/03-github-actions-cicd.md) |
-| 04 | [Production WSGI Server (Gunicorn)](../modules/10-production-and-deployment/04-gunicorn-wsgi.md) |
-| 05 | [Environment Configuration (.env and config classes)](../modules/10-production-and-deployment/05-env-config.md) |
-| 06 | [Deploy to Render](../modules/10-production-and-deployment/06-render-deployment.md) |
-| 07 | [Final Review and Best Practices](../modules/10-production-and-deployment/07-final-review.md) |
+> Cloud-native deployment track: secrets management, containerisation, Kubernetes, and automated CI/CD.
+> Azure subscription required for lessons 01 and 03–06.
+
+| # | Lesson | Focus |
+|---|--------|-------|
+| 01 | [Environment Config and Key Vault](../modules/10-production-and-deployment/01-env-and-keyvault.md) | `.env`, `gunicorn.conf.py`, `scripts/azure-vars.sh`, Azure Key Vault |
+| 02 | [Dockerize the App](../modules/10-production-and-deployment/02-docker.md) | Dockerfile, Gunicorn, Docker Compose + MySQL |
+| 03 | [Deploy to Azure Container Apps](../modules/10-production-and-deployment/03-container-apps.md) | ACR, Azure DB for MySQL, Managed Identity, Key Vault secret refs |
+| 04 | [Helm Deployment to AKS](../modules/10-production-and-deployment/04-helm-aks.md) | AKS, Helm 3, Key Vault CSI driver, Workload Identity |
+| 05 | [CI/CD with GitHub Actions](../modules/10-production-and-deployment/05-github-actions-cicd.md) | OIDC federation, no stored credentials, deploy to Container Apps |
+| 06 | [CI/CD with Azure DevOps](../modules/10-production-and-deployment/06-azure-devops-cicd.md) | Azure Pipelines, Service Connection WIF, HelmDeploy to AKS |
+| 07 | [Cleanup and Module Review](../modules/10-production-and-deployment/07-cleanup-and-review.md) | Architecture diagrams, resource map, Azure cleanup |

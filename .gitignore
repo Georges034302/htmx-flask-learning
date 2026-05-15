@@ -14,7 +14,10 @@ __pycache__/
 Thumbs.db
 
 # Local runtime/data artifacts (if app code is reintroduced later)
-.env
 uploads/
 instance/
 *.db
+
+# Environment variables and configuration files
+.env
+.env.*  

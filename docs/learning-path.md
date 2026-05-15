@@ -15,7 +15,7 @@ Follow modules strictly in numeric order from [index.md](index.md).
 | 5 | 07 | Progressive enhancement, OOB swaps, clean route design |
 | 6 | 08 | SQLAlchemy, form validation, MySQL integration |
 | 7 | 09 | Session-based auth, file uploads |
-| 8 | 10 | Docker, Azure, CI/CD, Gunicorn, Render, final review |
+| 8 | 10 | Docker + Gunicorn, Azure Key Vault, Container Apps, AKS/Helm, GitHub Actions CI/CD, Azure DevOps CI/CD |
 
 ## Practical Rules
 

@@ -13,7 +13,12 @@ A structured curriculum for building server-rendered web applications with Flask
 - Out-of-band swaps and clean route architecture
 - SQLAlchemy, form validation, and MySQL integration
 - Session-based authentication and file uploads
-- Docker, CI/CD, Azure, and Render deployment
+- Docker and Gunicorn (production WSGI)
+- Azure Key Vault secrets management and OIDC authentication
+- Azure Container Apps deployment with Managed Identity
+- Kubernetes (AKS) deployment with Helm 3 and Key Vault CSI driver
+- GitHub Actions CI/CD with OIDC (no stored credentials)
+- Azure DevOps Pipelines with Workload Identity Federation
 
 ## Architecture
 
@@ -46,6 +51,7 @@ Full structure: [docs/architecture-and-patterns.md](docs/architecture-and-patter
 
 | File | Purpose |
 |------|---------|
+| [docs/production.md](docs/production.md) | Azure production deployment reference and architecture |
 | [docs/course-overview.md](docs/course-overview.md) | Scope, outcomes, entry points |
 | [docs/learning-path.md](docs/learning-path.md) | Phase breakdown and sequencing |
 | [docs/architecture-and-patterns.md](docs/architecture-and-patterns.md) | Design patterns and project structure |

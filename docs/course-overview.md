@@ -27,5 +27,8 @@ By completing the course, a learner should be able to:
 - Use out-of-band swaps to update multiple page regions in a single response
 - Transition from mock data to SQLite and then MySQL-backed workflows
 - Design resource-based routes and scale to multiple Flask Blueprints
-- Deploy to both Azure Container Apps and Render
+- Containerise a Flask app with Docker and Gunicorn
+- Deploy to Azure Container Apps using Managed Identity and Key Vault
+- Deploy to AKS using Helm 3 with Key Vault CSI driver and Workload Identity
+- Automate deployments with GitHub Actions (OIDC) and Azure DevOps Pipelines
 - Make informed decisions about when HTMX is (and is not) the right tool
